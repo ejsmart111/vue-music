@@ -1,32 +1,121 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div class="body">
+      <div class="sidebar">
+        <component :is="'sidebar'"/>
+      </div>
+      <transition name="slide-fade">
+        <div v-if="sideNav" class="sidebarz">
+          <component :is="'sidebar'"/>
+        </div>
+      </transition>
+      <div class="header">
+        <component :is="'headerNav'"/>
+      </div>
+      <div class="content">
+        <router-view/>
+      </div>
+      <div class="player">
+        <component :is="'player'"/>
+      </div>
     </div>
-    <router-view/>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script lang="ts">
+import Vue from 'vue'
+import Component from 'vue-class-component'
+import player from './components/player.vue'
+import headerNav from './components/header.vue'
+import sidebar from './components/sidebar.vue'
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+@Component({
+  components: {
+    player,
+    headerNav,
+    sidebar
   }
+})
+export default class App extends Vue {
+    
+    get sideNav () {
+        return this.$store.getters['getSideNav']
+    }
+
 }
+</script>
+
+<style lang="scss">
+  .body {
+    display: grid;
+    grid-template-columns: 250px auto;
+    grid-template-rows: 60px auto auto;
+    height: 100vh;
+  }
+
+  .sidebar, .sidebarz {
+    background: var(--white);
+    padding: 10px;
+    grid-row: 1/3;
+    grid-column: 1;
+    position: fixed;
+    left: 0;
+    top:0;
+    overflow-y: hidden;
+    height: 100%;
+    width: 230px;
+    box-shadow: 2px 2px 10px rgba(26, 19, 19, 0.164);
+  }
+
+  .header {
+    padding: 10px;
+    background: var(--white);
+    grid-column: 2/4;
+    position: sticky;
+    width: 100%;
+    top: 0;
+    box-shadow: 0px 3px 6px #00000021;
+  }
+
+  .content {
+    padding: 30px;
+    width: 100%;
+    background: var(--white-body);
+    grid-column: 2/4;
+  }
+
+  .player {
+    padding: 10px;
+    box-shadow: 0 3px 20px #2B2424;
+    background: var(--white);
+    grid-column: 1/4;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+  }
+
+  .slide-fade-enter-active {
+      transition: all .3s ease-in-out;
+  }
+
+  .slide-fade-leave-active {
+  
+      transition: all .1s ease-in-out; 
+  }
+
+  .slide-fade-enter, .slide-fade-leave-to {
+      transform: translateX(-100px); 
+  }
+
+  @media (max-width: 800px) {
+      .sidebar{
+        display: none
+      }
+      .header {
+        grid-column: 1/4;
+      }
+      .content {
+        grid-column: 1/4;
+      }
+  }
 </style>

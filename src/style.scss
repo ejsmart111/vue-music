@@ -1,0 +1,62 @@
+html[data-theme='light'] {
+    --white: #FFFFFF;
+    --text-dark:#434343;
+    --text-light: #888787;
+    --white-body: #FFFFFF;
+    --icons: #888787;
+    --main: #E2364D;
+    --theme-switch: #E2364D;
+    --search-border: rgb(233, 236, 243);
+    --name-title: #292828;
+}
+
+html {
+    --white: #15131D;
+    --text-dark: #FFFFFF;
+    --text-light: #888787;
+    --white-body: #1E2029;
+    --icons: #888787;
+    --main: #E2364D;
+    --theme-switch: rgb(61, 59, 68);
+    --search-border: rgb(66, 66, 66);
+    --name-title: #D2D2D2;
+}
+
+.image-round {
+    border-radius: 50%;
+}
+
+.image-fluid{
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.icons {
+    color: var(--icons);
+    font-size: 20px;
+}
+
+.form-input {
+    width: auto;
+    padding: 8px;
+    border-radius: 5px;
+    box-shadow: 0px;
+    border: 1px solid var(--search-border);
+    background-color: var(--white);
+    font-family: nunito;
+    &::placeholder {
+        color: var(--text-light)
+    }
+}
+
+.btn-norm {
+    color: white;
+    background-color: var(--main); 
+    min-width: 120px;
+    padding: 0px 20px;
+    min-height: 45px;
+    font-family: nunito;
+    border-radius: 5px;
+    border: 0px
+}
