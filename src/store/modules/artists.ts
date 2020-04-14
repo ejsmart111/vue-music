@@ -22,9 +22,9 @@ const getters = {
 }
 
 const actions = {
-     fetchArtistOfTheWeek({commit}: {commit: any}) {
+     fetchArtistOfTheWeek({commit}: {commit: any}, payload: any) {
        return new Promise ((resolve, reject) => {
-         axios.get(base+'artists/?client_id='+clientId+'&limit=1&format=jsonpretty&order=popularity_week').then((response: any) => {
+         axios.get(base+'artists/?client_id='+clientId+'&limit='+payload+'&format=jsonpretty&order=popularity_week').then((response: any) => {
           resolve(response.data.results)
           commit('setWeekArtist', response.data.results)
          }).catch((error: any) => {

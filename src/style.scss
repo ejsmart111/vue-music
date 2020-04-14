@@ -8,6 +8,8 @@ html[data-theme='light'] {
     --theme-switch: #E2364D;
     --search-border: rgb(233, 236, 243);
     --name-title: #292828;
+    --shine: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #edf0f3 100%, #f6f7f8 100%);
+    --table-border: rgb(229, 228, 233)
 }
 
 html {
@@ -18,8 +20,10 @@ html {
     --icons: #888787;
     --main: #E2364D;
     --theme-switch: rgb(61, 59, 68);
-    --search-border: rgb(66, 66, 66);
+    --search-border: rgb(37, 36, 39);
     --name-title: #D2D2D2;
+    --shine: linear-gradient(to right, #1E2029 0%, rgb(26, 28, 34) 20%, rgb(19, 20, 29) 40%, rgb(13, 20, 27) 100%);
+    --table-border: rgb(78, 77, 97)
 }
 
 .image-round {
@@ -55,7 +59,7 @@ html {
     background-color: var(--main); 
     min-width: 120px;
     padding: 0px 20px;
-    min-height: 45px;
+    min-height: 35px;
     font-family: nunito;
     border-radius: 5px;
     border: 0px

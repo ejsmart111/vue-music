@@ -22,16 +22,16 @@ const getters = {
 }
 
 const actions = {
-     fetchAlbumOfTheWeek({commit}: {commit: any}) {
-       return new Promise ((resolve, reject) => {
-         axios.get(base+'albums/?client_id='+clientId+'&limit=1&format=jsonpretty&order=popularity_week').then((response: any) => {
+    fetchAlbumOfTheWeek({commit}: {commit: any}, payload: number) {
+      return new Promise ((resolve, reject) => {
+        axios.get(base+'albums/?client_id='+clientId+'&limit='+payload+'&format=jsonpretty&order=popularity_week').then((response: any) => {
           resolve(response.data.results)
           commit('setWeekAlbum', response.data.results)
-         }).catch((error: any) => {
-           reject(error)
-         })
-       })
-     }
+        }).catch((error: any) => {
+          reject(error)
+        })
+      })
+    },
 }
 
 const albumModule = {

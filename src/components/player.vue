@@ -21,34 +21,40 @@
         </div>
 
         <div class="song-slider">
-            <input class="range" ref="time" type="range" min="0" step="1" :max="audio.duration" v-model="audio.currentTime" />
+            <input class="range" style="margin-top:3px" ref="time" type="range" min="0" step="0.1" :max="audio.duration" v-model="audio.currentTime" />
+            <p style="color: var(--icons);font-family:nunito;margin-top:23px;margin-left:10px">{{convertTime(current.duration)}}</p>
         </div>
         <div class="song-controllers" style="margin-top: 14px">
             <font-awesome-icon @click="repeat" :style="isRepeat?{color: 'var(--main)'}: {color: 'var(--icons)'}" class="icons other controllers" icon="redo"/>           
             <font-awesome-icon @click="shuffle" :style="isShuffle?{color: 'var(--main)'}: {color: 'var(--icons)'}" class="icons other controllers" icon="random"/>
             <font-awesome-icon v-if="mutes" @click="mute" style="color: var(--main)" class="icons other controllers" icon="volume-mute"/>
             <font-awesome-icon v-else @click="mute" style="color: var(--icons)" class="icons other controllers" icon="volume-up"/>
-            <input class="range volume" style="margin-top: -12px" type="range" min="0" step="0.01" max="1" @change="audio.muted = false"  v-model="audio.volume" />
+            <input class="range volume" style="margin-top: -10px" type="range" min="0" step="0.01" max="1" @change="audio.muted = false"  v-model="audio.volume" />
             <!-- <font-awesome-icon class="icons other controllers" style="font-size: 20px" icon="info-circle"/> -->
         </div>
       </div>    
       <div class="all">
         <div class="mobile">
             <div class="cont">
-                <font-awesome-icon style="margin-right: 10px" class="icons other" icon="backward"/>
-                <font-awesome-icon class="icons play" icon="play-circle"/>
-                <font-awesome-icon style="margin-left: 10px" class="icons other" icon="forward"/>
+                <font-awesome-icon @click="playPrevious" style="margin-right: 10px" class="icons other" icon="backward"/>
+                <font-awesome-icon @click="play" v-show="playing" class="icons play" icon="play-circle"/>
+                <font-awesome-icon @click="pause" v-show="!playing" class="icons play" icon="pause-circle"/>
+                <font-awesome-icon @click="playNext" style="margin-left: 10px" class="icons other" icon="forward"/>
             </div>
             <div class="song-slider" style="margin: 10px auto">
-                <input class="range" style="margin-top:10px" type="range" min="1" step="0" value="0" />                
+                <input class="range" ref="mobile-time" style="margin-top:10px" type="range" min="0" step="0.1" :max="audio.duration" v-model="audio.currentTime"/>                
             </div>
             <div class="song-controllers">
-                <font-awesome-icon class="icons other controllers" icon="redo"/>           
-                <font-awesome-icon class="icons other controllers" icon="random"/>
-                <font-awesome-icon class="icons other controllers" icon="volume-mute"/>
+                <font-awesome-icon @click="repeat" :style="isRepeat?{color: 'var(--main)'}: {color: 'var(--icons)'}" class="icons other controllers" icon="redo"/>           
+                <font-awesome-icon @click="shuffle" :style="isShuffle?{color: 'var(--main)'}: {color: 'var(--icons)'}" class="icons other controllers" icon="random"/>
+                <font-awesome-icon v-if="mutes" @click="mute" style="color: var(--main)" class="icons other controllers" icon="volume-mute"/>
+                <font-awesome-icon v-else @click="mute" style="color: var(--icons)" class="icons other controllers" icon="volume-up"/>
             </div>
-            <div class="row" style="margin: 0 auto">
-                <p><span class="title">Die Young</span><br><span class="artist">Roddy Ricch</span></p>
+            <div v-if="current" class="row" style="margin: 0 auto; text-align: center">
+                <p><span class="title">{{current.name}}</span><br><span class="artist">{{current.artist_name}}</span></p>
+            </div>
+            <div v-else class="row" style="margin: 0 auto; text-align: center">
+                <p><span class="title">Song of the Year 2020</span><br><span class="artist">Artist Kahwi</span></p>
             </div>
         </div>
       </div>
@@ -75,6 +81,20 @@ export default class Player extends Vue {
     }
     get isRepeat () {
         return this.$store.getters['getRepeat']
+    }
+    get convertDurationToMinutes() {
+        return (Math.round(this.audio.duration)/60).toFixed(2)
+    }
+    get convertCurrentTimeToMinutes() {
+        return (Math.round(this.audio.currentTime)/60).toFixed(2)
+    }
+
+    convertTime (secs: any) {
+        const min = Math.floor(secs / 60);
+        const sec = secs % 60;
+        const minute = (min < 10) ? "0" + min : min;
+        const seconds = (sec < 10) ? "0" + sec : sec;
+        return (minute + ':' + seconds);
     }
 
     shuffle() {
@@ -105,7 +125,9 @@ export default class Player extends Vue {
                 this.playNext()
             }
             const c = this.$refs.time as any
+            const d = this.$refs['mobile-time'] as any
             c.value = Math.round(this.audio.currentTime)
+            d.value = Math.round(this.audio.currentTime)
         }, 1000)
     }
     mute () {
@@ -270,6 +292,14 @@ export default class Player extends Vue {
     .range::-ms-fill-upper { 
         background-color: #d7dbdd;
         border-radius: 3px;
+    }
+
+    .timer {
+        color: var(--icons);
+        font-size: 14px;
+        font-family: nunito;
+        margin-top: 24px;
+        margin-left: 10px;
     }
 
     .range::-ms-tooltip { display: none; /* display and visibility only */ }

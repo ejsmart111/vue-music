@@ -15,9 +15,11 @@
       <div class="content">
         <router-view/>
       </div>
-      <div class="player">
-        <component :is="'player'"/>
-      </div>
+      <transition name="slide-bota">
+        <div class="player" v-if="current">
+          <component :is="'player'"/>
+        </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -37,9 +39,12 @@ import sidebar from './components/sidebar.vue'
   }
 })
 export default class App extends Vue {
-    
     get sideNav () {
         return this.$store.getters['getSideNav']
+    }
+
+    get current () {
+        return this.$store.getters['getCurrent']
     }
 
 }
@@ -74,6 +79,7 @@ export default class App extends Vue {
     position: sticky;
     width: 100%;
     top: 0;
+    z-index: 1500;
     box-shadow: 0px 3px 6px #00000021;
   }
 
@@ -105,6 +111,19 @@ export default class App extends Vue {
 
   .slide-fade-enter, .slide-fade-leave-to {
       transform: translateX(-100px); 
+  }
+
+  .slide-bota-enter-active {
+      transition: all .3s ease-in-out;
+  }
+
+  .slide-bota-leave-active {
+  
+      transition: all .1s ease-in-out; 
+  }
+
+  .slide-bota-enter, .slide-fade-leave-to {
+      transform: translateY(100px); 
   }
 
   @media (max-width: 800px) {
