@@ -49,6 +49,16 @@ const actions = {
           resolve(error)
         })
       })
+    },
+    fetchArtistTracks({commit}: {commit: any}, payload: any) {
+      return new Promise ((resolve: any, reject: any)=> {
+        axios.get(base+'artists/tracks/?client_id='+clientId+'&format=jsonpretty&order=popularity_week&id='+payload).then((response: any) => {
+          resolve(response.data.results)
+          commit('setTracks', response.data.results)
+        }).catch((error: any) => {
+          resolve(error)
+        })
+      })
     }
 }
 

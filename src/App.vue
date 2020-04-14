@@ -12,7 +12,7 @@
       <div class="header">
         <component :is="'headerNav'"/>
       </div>
-      <div class="content">
+      <div class="content" style="margin-top: 60px">
         <router-view/>
       </div>
       <transition name="slide-bota">
@@ -72,11 +72,19 @@ export default class App extends Vue {
     box-shadow: 2px 2px 10px rgba(26, 19, 19, 0.164);
   }
 
+  .sidebar {    
+    z-index: 1600;
+  }
+
+  .sidebarz {
+    z-index: 1400;
+  }
+  
   .header {
     padding: 10px;
     background: var(--white);
     grid-column: 2/4;
-    position: sticky;
+    position: fixed;
     width: 100%;
     top: 0;
     z-index: 1500;
@@ -97,6 +105,7 @@ export default class App extends Vue {
     grid-column: 1/4;
     position: fixed;
     width: 100%;
+    z-index: 2000;
     bottom: 0;
   }
 
@@ -124,6 +133,12 @@ export default class App extends Vue {
 
   .slide-bota-enter, .slide-fade-leave-to {
       transform: translateY(100px); 
+  }
+
+  @media (max-width: 576px) {
+    #app {
+      width: 80%;
+    }
   }
 
   @media (max-width: 800px) {

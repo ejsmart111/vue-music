@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import HomeComponent from '@/views/home.vue'
-import Albums from "@/views/albums.vue";
+import Albums from "@/views/albums.vue"
+import Artist from '@/views/artist.vue'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,11 @@ Vue.use(VueRouter)
     path: '/album/:id',
     name: 'Albums',
     component: Albums,
+  },
+  {
+    path: '/artist/:id',
+    name: 'Artist',
+    component: Artist,
   }
 ]
 

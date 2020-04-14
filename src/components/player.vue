@@ -22,7 +22,7 @@
 
         <div class="song-slider">
             <input class="range" style="margin-top:3px" ref="time" type="range" min="0" step="0.1" :max="audio.duration" v-model="audio.currentTime" />
-            <p style="color: var(--icons);font-family:nunito;margin-top:23px;margin-left:10px">{{convertTime(current.duration)}}</p>
+            <p style="color: var(--icons);font-family:nunito;margin-top:23px;">{{convertTime(current.duration)}}</p>
         </div>
         <div class="song-controllers" style="margin-top: 14px">
             <font-awesome-icon @click="repeat" :style="isRepeat?{color: 'var(--main)'}: {color: 'var(--icons)'}" class="icons other controllers" icon="redo"/>           

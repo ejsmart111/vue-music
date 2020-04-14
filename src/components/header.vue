@@ -92,7 +92,7 @@ export default class Header extends Vue {
         border-radius: 1em;
         margin-left: 20px;
         margin-top: 14px;
-        margin-right: 10px;
+        margin-right: 30px;
     }
 
     .switch div {

@@ -4,13 +4,13 @@
       <div v-else class="begin">
           <div class="child one" style="display: flex" :style="{ 'background-image': 'url(' + album[0].image + ')'}">
               <font-awesome-icon class="play" @click="playAlbum()" size="2x" icon="play-circle" style="cursor:pointer;color: var(--main);margin-top:250px; margin-left:10px;"/>
-              <font-awesome-icon class="play" @click="shuffleAlbum()" size="2x" icon="random" style="cursor:pointer;color: var(--main);margin-top:253px;font-size:25px;margin-left:10px;"/>
+              <!-- <font-awesome-icon class="play" @click="shuffleAlbum()" size="2x" icon="random" style="cursor:pointer;color: var(--main);margin-top:253px;font-size:25px;margin-left:10px;"/> -->
           </div>
           <div class="child two">
               <p class="title">{{album[0].name}}</p>
               <p class="artist"><span style="color: var(--main)">Artist</span> : {{album[0].artist_name}}</p>
               <p class="artist"><span style="color: var(--main)">Date</span> : {{album[0].releasedate}}</p><br>
-              <a style="padding: 5px 20px" :href="album[0].zip" class="btn-norm"><font-awesome-icon icon="download"/> Download Album</a>
+              <a style="padding: 5px 20px 8px 20px" :href="album[0].zip" class="btn-norm"><font-awesome-icon icon="download"/> Download Album</a>
           </div>
       </div><br><br>
       <div class="second">
@@ -24,7 +24,7 @@
                           <p>Tracks</p>
                       </th>
                       <th>
-                          <font-awesome-icon class="play" size="2x" icon="play-circle" style="cursor:pointer;color:var(--text-light);font-size:20px;"/>
+                          <font-awesome-icon class="play" size="2x" icon="play-circle" style="cursor:pointer;color:var(--text-light);font-size:20px;margin-bottom:10px"/>
                       </th>
                       <th>
                           <p>Duration</p>
@@ -39,15 +39,15 @@
                       <td><p>{{track.position}}</p></td>
                       <td><p>{{track.name}}</p></td>
                       <td>
-                        <font-awesome-icon class="play" @click="playSong(track, album[0].tracks)" size="2x" icon="play-circle" style="cursor:pointer;color:var(--main);font-size:20px;"/>
+                        <font-awesome-icon class="play" @click="playSong(track, album[0].tracks)" size="2x" icon="play-circle" style="cursor:pointer;color:var(--main);font-size:20px;margin-bottom:10px"/>
                         <!-- <font-awesome-icon v-if="current.id !== track.id"  v-else class="play" @click="audio.pause()" size="2x" icon="pause-circle" style="cursor:pointer;color:var(--main);font-size:20px;"/> -->
                       </td>
                       <td><p>{{convertTime(track.duration)}}</p></td>
-                      <td><a style="padding: 5px 20px;" :href="track.audiodownload" class="btn-norm"><font-awesome-icon class="download" icon="download"/> Download</a></td>
+                      <td><a :href="track.audiodownload"><button style="margin-bottom:20px" class="btn-norm"><font-awesome-icon class="download" icon="download"/> Download</button></a></td>
                   </tr>
               </tbody>
           </table>
-        <br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br><br><br>
       </div>
   </div>
 </template>
@@ -61,7 +61,7 @@ export default class Album extends Vue {
     loader = true
 
     get album () {
-        return this.$store.getters['trackModule/getTracks']
+        return this.$store.getters['trackModule/getTracks'] ? this.$store.getters['trackModule/getTracks']: []
     }
 
     get audio () {
@@ -84,15 +84,6 @@ export default class Album extends Vue {
         this.$store.commit('setTracksQueue', this.album[0].tracks)
         this.$store.commit('playTrack', this.album[0].tracks[0])
         this.audio.src = this.album[0].tracks[0].audio
-        this.audio.play()
-    }
-
-    shuffleAlbum() {
-        const random = Math.floor(Math.random() * Math.floor(this.album[0].tracks.length))
-        this.$store.commit('setShuffleTrue')
-        this.$store.commit('setTracksQueue', this.album[0].tracks)
-        this.$store.commit('playTrack', this.album[0].tracks[random])
-        this.audio.src = this.album[0].tracks[random].audio
         this.audio.play()
     }
 
@@ -175,6 +166,9 @@ export default class Album extends Vue {
     @media (max-width: 576px) {
         .begin {
             flex-flow: column;
+            .one {
+                max-width: 92%;
+            }
         }
     }
     @media (max-width:800px) {

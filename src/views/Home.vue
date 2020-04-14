@@ -5,22 +5,22 @@
         <div class="tops">
             <div style="margin-bottom:80px" class="card top-artist">
                 <p class="heads">Artist of the Week</p>
-                <div class="top-art" :style="{ 'background-image': 'linear-gradient(rgba(146, 59, 149, 0.349), rgba(149, 59, 144, 0.349)),url(' + weekArtist[0].image + ')' }"></div>
-                <p class="title">{{weekArtist[0].name}}</p>
+                <div class="top-art" :style="{ 'background-image': 'linear-gradient(rgba(146, 59, 149, 0.349), rgba(149, 59, 144, 0.349)),url(' + topArtist.image + ')' }"></div>
+                <router-link :to="'/artist/'+topArtist.id"><p style="margin-top: 14px" class="title">{{topArtist.name}}</p></router-link>
             </div>
             <div style="margin-bottom:80px" class="card top-album">
                 <p class="heads">Album of the Week</p>
-                <div class="top-al" :style="{ 'background-image': 'linear-gradient(rgba(59, 65, 149, 0.344), rgba(87, 59, 149, 0.344)), url(' + weekAlbum[0].image + ')' }"></div>
+                <div class="top-al" :style="{ 'background-image': 'linear-gradient(rgba(59, 65, 149, 0.344), rgba(87, 59, 149, 0.344)), url(' + topAlbum.image + ')' }"></div>
                 <div class="options">
-                    <p style="flex:2 2 0" class="title">{{weekAlbum[0].artist_name}}- <b>{{weekAlbum[0].name}}</b></p>
-                    <a :href="weekAlbum[0].zip" class="title" style="flex: 0 1 100px;margin-top:13px; color: var(--main); text-align: right" >&darr; Download</a>
+                    <p style="flex:2 2 0" class="title">{{topAlbum.artist_name}}- <b>{{topAlbum.name}}</b></p>
+                    <a :href="topAlbum.zip" class="title" style="flex: 0 1 100px;margin-top:13px; color: var(--main); text-align: right" >&darr; Download</a>
                 </div>
             </div>
         </div>
         <br><br><br><br>
         <p class="heads">Top Tracks</p>
         <div class="tops">
-            <div class="card top-tracks" v-for="(track, index) in sort(topTracks)" :key="index">
+            <div class="card top-tracks" v-for="(track, index) in topTracks" :key="index+'l'">
                 <div class="tracks" :style="{ 'background-image': 'linear-gradient(rgba(0, 0, 0, 0.349), rgba(0, 0, 0, 0.349)),url(' + track.image + ')' }">
                     <font-awesome-icon class="play" @click="playSong(track, topTracks)" size="2x" icon="play-circle" style="color: var(--main);margin-top:150px; margin-left:10px;"/>
                 </div>
@@ -33,12 +33,12 @@
         <br><br>
         <p class="heads">Top Albums</p>
         <div class="tops">
-            <div class="card top-tracks" v-for="(album, index) in weekAlbum" :key="index">
+            <div class="card top-tracks" v-for="(album, index) in weekAlbum" :key="index+'k'">
                 <router-link :to="'/album/'+album.id"><div class="tracks" :style="{ 'background-image': 'linear-gradient(rgba(0, 0, 0, 0.349), rgba(0, 0, 0, 0.349)),url(' + album.image + ')' }">
                     <font-awesome-icon class="play" @click="playAlbum(album.id)" size="2x" icon="play-circle" style="color: var(--main);margin-top:150px; margin-left:10px;"/>
                 </div></router-link>
                 <div class="options">
-                    <router-link :to="'/album'+album.id" style="flex:2 2 0;margin-top:14px;cursor:pointer" class="title">{{album.artist_name}}- <b>{{album.name}}</b></router-link>
+                    <router-link :to="'/album'+album.id" style="flex:2 2 0;margin-top:14px" class="title">{{album.artist_name}}- <b>{{album.name}}</b></router-link>
                     <a :href="album.zip" class="title" style="flex: 0 1 100px;margin-top:13px; color: var(--main); text-align: right" >&darr; Download</a>
                 </div>
             </div>
@@ -46,16 +46,16 @@
         <br><br>
         <p class="heads">Top Artists</p>
         <div class="tops">
-            <div class="card top-tracks" v-for="(artist, index) in weekArtist" :key="index">
-                <div class="tracks" :style="{ 'background-image': 'linear-gradient(rgba(0, 0, 0, 0.349), rgba(0, 0, 0, 0.349)),url(' + artist.image + ')' }">
+            <div class="card top-tracks" v-for="(artist, index) in weekArtist" :key="index+'s'">
+                <router-link :to="'/artist/'+artist.id"><div class="tracks" :style="{ 'background-image': 'linear-gradient(rgba(0, 0, 0, 0.349), rgba(0, 0, 0, 0.349)),url(' + artist.image + ')' }">
                 </div>
                 <div class="options">
                     <p style="flex:2 2 0" class="title"><b>{{artist.name}}</b></p>
-                </div>
+                </div></router-link>
             </div>
         </div>
-        <br><br><br><br><br>
-      </div>
+        <br><br><br><br><br><br><br><br><br><br><br><br>
+      </div> 
   </div>
 </template>
 
@@ -68,36 +68,22 @@ export default class Home extends Vue {
     loader = true
 
     get weekArtist() {
-        if (this.$store.getters['artistModule/getWeekArtist'].length <= 0){
-            return {}
-        } else {
-            return this.$store.getters['artistModule/getWeekArtist']
-        }
+        return this.$store.getters['artistModule/getWeekArtist']?this.$store.getters['artistModule/getWeekArtist']:[]
+    }
+    get topArtist () {
+        return this.weekArtist[0]?this.weekArtist[0]:{}
     }
     get weekAlbum() {
-        if (this.$store.getters['albumModule/getWeekAlbum'].length <= 0){
-            return {}
-        } else {
-            return this.$store.getters['albumModule/getWeekAlbum']
-        }
+        return this.$store.getters['albumModule/getWeekAlbum']?this.$store.getters['albumModule/getWeekAlbum']:[]
+    }
+    get topAlbum () {
+        return this.weekAlbum[0]?this.weekAlbum[0]:{}
     }
     get topTracks() {
-        if (this.$store.getters['trackModule/getTopTracks'].length <= 0){
-            return {}
-        } else {
-            return this.$store.getters['trackModule/getTopTracks']
-        }
+            return this.$store.getters['trackModule/getTopTracks']?this.$store.getters['trackModule/getTopTracks']:[]
     }
     get audio () {
         return this.$store.getters['getAudio']
-    }
-
-    sort(arr: any) {
-        if (arr) {
-            return arr.sort((a: any, b: any) => (a.position > b.position) ? 1 : -1)
-        } else {
-            return arr
-        }
     }
 
     playAlbum(id: any) {
@@ -134,6 +120,7 @@ export default class Home extends Vue {
 <style lang="scss" scoped>
     .tops {
         display: flex;
+        flex-wrap: wrap;
         max-width: 96%;
         .top-artist {
             flex: 2 2 0;
@@ -199,11 +186,13 @@ export default class Home extends Vue {
 
     a{
         text-decoration: none;
+        cursor: pointer;
     }
 
     @media (max-width: 576px) {
         .tops {
             flex-flow: column;
+            width: 100%;
         }
     }
     @media (max-width: 800px) and (min-width: 576px) {
@@ -212,6 +201,11 @@ export default class Home extends Vue {
             .card {
                 flex: 2 2 0
             }
+        }
+    }
+    @media (max-width: 900px) {
+        .card {
+            min-width: 250px
         }
     }
 </style>
