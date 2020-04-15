@@ -8,7 +8,7 @@
           </div>
           <div class="child two">
               <p class="title">{{album[0].name}}</p>
-              <p class="artist"><span style="color: var(--main)">Artist</span> : {{album[0].artist_name}}</p>
+              <p class="artist"><span style="color: var(--main)">Artist</span> : <router-link :to="'/artist/'+album[0].artist_id">{{album[0].artist_name}}</router-link></p>
               <p class="artist"><span style="color: var(--main)">Date</span> : {{album[0].releasedate}}</p><br>
               <a style="padding: 5px 20px 8px 20px" :href="album[0].zip" class="btn-norm"><font-awesome-icon icon="download"/> Download Album</a>
           </div>
@@ -96,6 +96,7 @@ export default class Album extends Vue {
     }
 
     mounted () {
+        window.scrollTo(0,0);
         this.$store.dispatch('trackModule/fetchAlbumTracks', this.$route.params.id).then((response: any) => {
             this.loader = false
             response[0].tracks.map((track: any) => {

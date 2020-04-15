@@ -11,7 +11,7 @@
                 <router-link to='/artists'><font-awesome-icon class="icons" icon="user"/> <span :class="{ 'active' : $route.path == '/artists'}" style="margin-left: 19px" class="link">Artists</span></router-link>
             </li>
             <li class="nav-links">
-                <router-link to='/'><font-awesome-icon class="icons" icon="compact-disc"/> <span style="margin-left: 16px" class="link">Albums</span></router-link>
+                <router-link to='/albums'><font-awesome-icon class="icons" icon="compact-disc"/> <span :class="{ 'active' : $route.path == '/albums'}" style="margin-left: 16px" class="link">Albums</span></router-link>
             </li>
             <li class="nav-links">
                 <router-link to='/'><font-awesome-icon class="icons" icon="microphone-alt"/> <span style="margin-left: 22px" class="link">Tracks</span></router-link>

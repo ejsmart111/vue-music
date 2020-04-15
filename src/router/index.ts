@@ -4,6 +4,7 @@ import HomeComponent from '@/views/home.vue'
 import Albums from "@/views/albums.vue"
 import Artist from '@/views/artist.vue'
 import ArtistList from '@/views/artistsList.vue'
+import AlbumList from '@/views/albumsList.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ Vue.use(VueRouter)
     path: '/artists/',
     name: 'ArtistList',
     component: ArtistList,
+  },
+  {
+    path: '/albums/',
+    name: 'AlbumList',
+    component: AlbumList,
   },
 ]
 

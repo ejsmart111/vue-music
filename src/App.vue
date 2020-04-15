@@ -46,7 +46,6 @@ export default class App extends Vue {
     get current () {
         return this.$store.getters['getCurrent']
     }
-
 }
 </script>
 

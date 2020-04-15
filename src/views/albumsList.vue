@@ -2,10 +2,10 @@
     <div>
         <div class="tab">
             <div :class="{ 'active' : view == 'total'}" @click="view = 'total'" class="tab-item">
-                <p>Top Artists</p>
+                <p>Top Albums</p>
             </div>
             <div :class="{ 'active' : view == 'month'}" @click="view = 'month'" class="tab-item">
-                <p>Top Artists for the Month</p>
+                <p>Top Albums for the Month</p>
             </div>
         </div>
         <br>
@@ -13,11 +13,11 @@
         <div v-else>
             <div v-if="view === 'total'">
                 <div class="tops">
-                    <div class="card top-tracks" v-for="(artist, index) in artistTotal" :key="index+'s'">
-                        <router-link :to="'/artist/'+artist.id"><div class="tracks" :style="{ 'background-image': 'linear-gradient(rgba(0, 0, 0, 0.349), rgba(0, 0, 0, 0.349)),url(' + artist.image + ')' }">
+                    <div class="card top-tracks" v-for="(album, index) in albumTotal" :key="index+'s'">
+                        <router-link :to="'/album/'+album.id"><div class="tracks" :style="{ 'background-image': 'linear-gradient(rgba(0, 0, 0, 0.349), rgba(0, 0, 0, 0.349)),url(' + album.image + ')' }">
                         </div>
                         <div class="options">
-                            <p style="flex:2 2 0" class="title"><b>{{artist.name}}</b></p>
+                            <p style="flex:2 2 0" class="title">{{album.artist_name}}- <b>{{album.name}}</b></p>
                         </div></router-link>
                     </div>
                 </div>
@@ -29,11 +29,11 @@
             </div>
             <div v-if="view === 'month'">
                 <div class="tops">
-                    <div class="card top-tracks" v-for="(artist, index) in artistMonth" :key="index+'s'">
-                        <router-link :to="'/artist/'+artist.id"><div class="tracks" :style="{ 'background-image': 'linear-gradient(rgba(0, 0, 0, 0.349), rgba(0, 0, 0, 0.349)),url(' + artist.image + ')' }">
+                    <div class="card top-tracks" v-for="(album, index) in albumMonth" :key="index+'s'">
+                        <router-link :to="'/album/'+album.id"><div class="tracks" :style="{ 'background-image': 'linear-gradient(rgba(0, 0, 0, 0.349), rgba(0, 0, 0, 0.349)),url(' + album.image + ')' }">
                         </div>
                         <div class="options">
-                            <p style="flex:2 2 0" class="title"><b>{{artist.name}}</b></p>
+                            <p style="flex:2 2 0" class="title">{{album.artist_name}}- <b>{{album.name}}</b></p>
                         </div></router-link>
                     </div>
                 </div>
@@ -53,7 +53,7 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 
 @Component
-export default class ArtistsList extends Vue {
+export default class AlbumsList extends Vue {
     loader = true
     pageOffset = 0
     pageOffsetAlt = 0
@@ -63,18 +63,18 @@ export default class ArtistsList extends Vue {
     clicksMonth = 1
     view = 'total'
 
-    get artistTotal () {
-        return this.$store.getters['artistModule/getArtistsTotal']
+    get albumTotal () {
+        return this.$store.getters['albumModule/getAlbumsTotal']
     }
 
-    get artistMonth () {
-        return this.$store.getters['artistModule/getArtistsMonth']
+    get albumMonth () {
+        return this.$store.getters['albumModule/getAlbumsMonth']
     }
 
     pageNext () {
         this.pageOffset += 16
         this.loader = true
-        this.$store.dispatch('artistModule/fetchPagesForTopArtists', this.pageOffsetMonth).then(()=> {
+        this.$store.dispatch('albumModule/fetchPagesForTopAlbums', this.pageOffsetMonth).then(()=> {
             this.loader = false
             window.scrollTo(0,0);
             this.clicks ++;
@@ -84,7 +84,7 @@ export default class ArtistsList extends Vue {
     pageBack () {
         this.loader = true
         this.pageOffset -= 16
-        this.$store.dispatch('artistModule/fetchPagesForTopArtists', this.pageOffsetMonth).then(() => {
+        this.$store.dispatch('albumModule/fetchPagesForTopAlbums', this.pageOffsetMonth).then(() => {
             this.loader = false
             window.scrollTo(0,0);
             this.clicks --;
@@ -95,7 +95,7 @@ export default class ArtistsList extends Vue {
     pageNextMonth () {
         this.loader = true
         this.pageOffsetMonth += 16
-        this.$store.dispatch('artistModule/fetchPagesForTopArtistsMonth', this.pageOffsetMonth).then(()=> {
+        this.$store.dispatch('albumModule/fetchPagesForTopAlbumsMonth', this.pageOffsetMonth).then(()=> {
             this.loader = false
             window.scrollTo(0,0);
             this.clicksMonth ++;
@@ -105,7 +105,7 @@ export default class ArtistsList extends Vue {
     pageBackMonth () {
         this.loader = true
         this.pageOffsetMonth -= 16
-        this.$store.dispatch('artistModule/fetchPagesForTopArtistsMonth', this.pageOffsetMonth).then(() => {
+        this.$store.dispatch('albumModule/fetchPagesForTopAlbumsMonth', this.pageOffsetMonth).then(() => {
             this.loader = false
             window.scrollTo(0,0);
             this.clicksMonth --;
@@ -115,10 +115,11 @@ export default class ArtistsList extends Vue {
 
     mounted() {
         window.scrollTo(0,0);
-        this.$store.dispatch('artistModule/fetchTopArtists').then((response: any) => {
+        this.$store.dispatch('albumModule/fetchTopAlbums').then((response: any) => {
+            window.console.log(response)
             this.loader = false
         })
-        this.$store.dispatch('artistModule/fetchTopArtistsMonth')
+        this.$store.dispatch('albumModule/fetchTopAlbumsMonth')
     }
 }
 </script>

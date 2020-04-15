@@ -23,6 +23,7 @@
         </div>
 
         <div class="song-slider">
+            <p style="color: var(--icons);font-family:nunito;margin-top:28px;">{{times}}</p>
             <input class="range" style="margin-top:10px; margin-right:20px" ref="time" type="range" min="0" step="0.1" :max="audio.duration" v-model="audio.currentTime" />
             <p style="color: var(--icons);font-family:nunito;margin-top:28px;">{{convertTime(current.duration)}}</p>
         </div>
@@ -121,6 +122,7 @@ export default class Player extends Vue {
         this.$store.commit('playPreviousSong')
         this.audio.play()
     }
+    times = '0'
     slider () {
         setInterval(() => {
             if(this.audio.ended) {
@@ -130,6 +132,7 @@ export default class Player extends Vue {
             const d = this.$refs['mobile-time'] as any
             c.value = Math.round(this.audio.currentTime)
             d.value = Math.round(this.audio.currentTime)
+            this.times = this.convertTime(Math.round(this.audio.currentTime))
         }, 1000)
     }
     mute () {

@@ -66,6 +66,8 @@
                 <router-link :to="'/album/'+album.id" style="flex:2 2 0;" class="name"><b>{{album.name}} ({{album.releasedate.substring(0,4)}})</b></router-link>
           </div>          
       </div>
+      <p class="artist" v-if="!tracks.tracks" style="color var(--text-light);text-align:center;font-size:18px;font-weight:bolder">Sorry no Info</p>
+      <!-- <pre>{{tracks}}</pre> -->
     <br><br><br><br><br><br><br><br><br><br><br><br>
     </div>
 </template>
@@ -127,6 +129,7 @@ export default class Artist extends Vue {
     }
 
     mounted () {
+        window.scrollTo(0,0);
         this.$store.dispatch('artistModule/fetchArtistInfo', this.$route.params.id).then((response: any) => {
             this.loader = false
         })
@@ -168,12 +171,12 @@ export default class Artist extends Vue {
 
     .third {
         display: flex;
-        width: 96%;
+        width: 100%;
         flex-wrap: wrap;
         .card {
             margin: 10px;
             margin-bottom: 30px;
-            flex: 1 1 21%;
+            flex: 0 0 23%;
             .image {
                 // width: 300px;
                 height: 200px;

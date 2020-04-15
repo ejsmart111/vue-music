@@ -108,11 +108,12 @@ export default class Home extends Vue {
     }
 
     created () {
-        this.$store.dispatch('artistModule/fetchArtistOfTheWeek', 4).then(() => {
+        window.scrollTo(0,0);
+        this.$store.dispatch('artistModule/fetchArtistOfTheWeek', 8).then(() => {
             this.loader = false
         })
-        this.$store.dispatch('albumModule/fetchAlbumOfTheWeek', 4)
-        this.$store.dispatch('trackModule/fetchTopTracks', 4)
+        this.$store.dispatch('albumModule/fetchAlbumOfTheWeek', 8)
+        this.$store.dispatch('trackModule/fetchTopTracks', 8)
     }
 }
 </script>
@@ -123,10 +124,10 @@ export default class Home extends Vue {
         flex-wrap: wrap;
         max-width: 100%;
         .top-artist {
-            flex: 2 2 0;
+            flex: 2 2 21%;
         }
         .top-album {
-            flex: 1 1 0;
+            flex: 1 1 21%;
         }
         .card {
             margin: 10px;
@@ -134,7 +135,7 @@ export default class Home extends Vue {
             margin-bottom: 30px;
         }
         .top-tracks {
-            flex: 1 1 0;
+            flex: 1 1 21%;
         }
     }
 

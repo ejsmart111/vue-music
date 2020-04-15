@@ -31,6 +31,7 @@ const getters = {
 
 const actions = {
     fetchTopTracks({commit}: {commit: any}, payload: any) {
+      commit('setTopTracks', [])
       return new Promise ((resolve, reject) => {
         axios.get(base+'tracks/?client_id='+clientId+'&limit='+payload+'&format=jsonpretty&boost=popularity_week').then((response: any) => {
         resolve(response.data.results)
@@ -41,6 +42,7 @@ const actions = {
       })
     },
     fetchAlbumTracks({commit}: {commit: any}, payload: any) {
+      commit('setTracks', [])
       return new Promise ((resolve: any, reject: any)=> {
         axios.get(base+'albums/tracks/?client_id='+clientId+'&format=jsonpretty&limit=1&id='+payload).then((response: any) => {
           resolve(response.data.results)
@@ -51,6 +53,7 @@ const actions = {
       })
     },
     fetchArtistTracks({commit}: {commit: any}, payload: any) {
+      commit('setTracks', [])
       return new Promise ((resolve: any, reject: any)=> {
         axios.get(base+'artists/tracks/?client_id='+clientId+'&format=jsonpretty&order=popularity_week&id='+payload).then((response: any) => {
           resolve(response.data.results)
