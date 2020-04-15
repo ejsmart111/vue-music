@@ -8,7 +8,7 @@
                 <router-link to='/'><font-awesome-icon class="icons" icon="home"/> <span :class="{ 'active' : $route.path == '/'}" class="link">Home</span></router-link>
             </li>
             <li class="nav-links">
-                <router-link to='/'><font-awesome-icon class="icons" icon="user"/> <span style="margin-left: 19px" class="link">Artists</span></router-link>
+                <router-link to='/artists'><font-awesome-icon class="icons" icon="user"/> <span :class="{ 'active' : $route.path == '/artists'}" style="margin-left: 19px" class="link">Artists</span></router-link>
             </li>
             <li class="nav-links">
                 <router-link to='/'><font-awesome-icon class="icons" icon="compact-disc"/> <span style="margin-left: 16px" class="link">Albums</span></router-link>

@@ -110,7 +110,7 @@ export default class Album extends Vue {
 <style lang="scss" scoped>
     .begin {
         display: flex;
-        width: 96%;
+        width: 100%;
         .child {
             height: 300px;
             margin: 10px;
@@ -134,7 +134,7 @@ export default class Album extends Vue {
     }
 
     table {
-        width: 96%;
+        width: 100%;
         font-family: nunito;
         border-top: 1px solid var(--table-border);
         th {

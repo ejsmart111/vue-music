@@ -56,6 +56,7 @@ export default class App extends Vue {
     grid-template-columns: 250px auto;
     grid-template-rows: 60px auto auto;
     height: 100vh;
+    width: 100vw
   }
 
   .sidebar, .sidebarz {
@@ -92,14 +93,16 @@ export default class App extends Vue {
   }
 
   .content {
-    padding: 30px;
+    padding: 4%;
+    padding-top: 1%;
+    box-sizing: border-box;
     width: 100%;
     background: var(--white-body);
     grid-column: 2/4;
   }
 
   .player {
-    padding: 10px;
+    padding: 0 10px;
     box-shadow: 0 3px 20px #2B2424;
     background: var(--white);
     grid-column: 1/4;
@@ -107,6 +110,7 @@ export default class App extends Vue {
     width: 100%;
     z-index: 2000;
     bottom: 0;
+    margin: 0 auto;
   }
 
   .slide-fade-enter-active {

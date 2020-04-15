@@ -1,6 +1,7 @@
 <template>
     <div class="container">
         <font-awesome-icon @click="toggleNav" icon="bars" class="bar"/>
+        <div class="no"></div>
         <div class="search">
             <input class="form-input" placeholder="Search"/>
         </div>
@@ -31,6 +32,17 @@ export default class Header extends Vue {
         } else {
             document.documentElement.setAttribute('data-theme', 'light')
         }
+        window.localStorage.setItem('theme', this.theme?'true':'false')
+    }
+
+    mounted() {
+        if (window.localStorage.getItem('theme') === 'false') {
+            document.documentElement.setAttribute('data-theme', 'dark')
+            this.theme = false
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light')
+            this.theme = true
+        }
     }
 }
 </script>
@@ -52,13 +64,16 @@ export default class Header extends Vue {
     }
     .search {
         flex: 1 1 0px;
-        margin: 0 auto;
+    }
+    .no {
+        width: 270px;
     }
 
     .form-input {
         margin-top: 3px;
         width: 300px;
-        border: 0px
+        border: 0px;
+        color: white
     }
 
     .profile-pic {
@@ -72,6 +87,9 @@ export default class Header extends Vue {
         }
         .search {
             width: 200px;
+        }
+        .no {
+            display: none;
         }
         .bar {
             display: block;

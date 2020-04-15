@@ -3,6 +3,7 @@ import VueRouter, { RouteConfig } from 'vue-router'
 import HomeComponent from '@/views/home.vue'
 import Albums from "@/views/albums.vue"
 import Artist from '@/views/artist.vue'
+import ArtistList from '@/views/artistsList.vue'
 
 Vue.use(VueRouter)
 
@@ -21,7 +22,12 @@ Vue.use(VueRouter)
     path: '/artist/:id',
     name: 'Artist',
     component: Artist,
-  }
+  },
+  {
+    path: '/artists/',
+    name: 'ArtistList',
+    component: ArtistList,
+  },
 ]
 
 const router = new VueRouter({

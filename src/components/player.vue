@@ -1,9 +1,11 @@
 <template>
   <div>
       <div class="large">
-        <div class="song">
-            <div v-if="current" class="album-art" style="width:70px; height: 70px" :style="{ 'background-image': 'url(' + current.image + ')' }"></div>
+        <div class="imager">
+            <div v-if="current" class="album-art" style="width:50px; height: 50px" :style="{ 'background-image': 'url(' + current.image + ')' }"></div>
             <div v-else class="album-art" style="width:70px; height: 70px;"></div>
+        </div>
+        <div class="song">
             <div style="margin-left: 20px; margin-top:0px">
                 <div v-if="current" class="row">
                     <p><span class="title">{{current.name}}</span><br><span class="artist">{{current.artist_name}}</span></p>
@@ -21,8 +23,8 @@
         </div>
 
         <div class="song-slider">
-            <input class="range" style="margin-top:3px" ref="time" type="range" min="0" step="0.1" :max="audio.duration" v-model="audio.currentTime" />
-            <p style="color: var(--icons);font-family:nunito;margin-top:23px;">{{convertTime(current.duration)}}</p>
+            <input class="range" style="margin-top:10px; margin-right:20px" ref="time" type="range" min="0" step="0.1" :max="audio.duration" v-model="audio.currentTime" />
+            <p style="color: var(--icons);font-family:nunito;margin-top:28px;">{{convertTime(current.duration)}}</p>
         </div>
         <div class="song-controllers" style="margin-top: 14px">
             <font-awesome-icon @click="repeat" :style="isRepeat?{color: 'var(--main)'}: {color: 'var(--icons)'}" class="icons other controllers" icon="redo"/>           
@@ -148,7 +150,7 @@ export default class Player extends Vue {
         flex-direction: row;
         padding: 0px 30px 0 30px;
         margin: 0 auto;
-        width: 80%;
+        width: 100%;
     }
 
     .icons {
@@ -169,6 +171,7 @@ export default class Player extends Vue {
         flex-direction: column;
         flex: 1 0 400px;
         justify-items: center;
+        max-height: 170px;
         >.song-controllers {
             margin: 0 auto;
         }
@@ -209,24 +212,35 @@ export default class Player extends Vue {
         background-position: center;
     }
 
-    .song-controllers, .song-slider {
-        flex: 1 1 0px;
+    .song-controllers {
+        flex: 1 1 450px;
         display: flex;
         margin-top: 4px;
     }
+    .song-slider {
+        flex: 1 1 450px;
+        display: flex;
+        // margin-top: 4px;
+    }
 
     .controls {
-        flex: 0 1 0px;
+        flex: 1 1 0px;
         display: flex;
         margin-top: 14px;
+        padding-left: 10px;
+        padding-right: 10px;
         >.other {
             margin-top: 15px;
         }
     }
-
+    .imager {
+        flex: 2 2 50px;
+        padding-top: 10px;
+    }
     .song {
-        flex: 0 1 300px;
+        flex: 2 2 200px;
         display: flex;
+        max-height: 100%;
     }
 
     .play {
@@ -238,7 +252,7 @@ export default class Player extends Vue {
         color: var(--text-dark);
         font-family: 'Nunito';
         font-weight: bold;
-        font-size: 16px;
+        font-size: 14px;
     }
 
     span.artist {

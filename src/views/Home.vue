@@ -12,7 +12,7 @@
                 <p class="heads">Album of the Week</p>
                 <div class="top-al" :style="{ 'background-image': 'linear-gradient(rgba(59, 65, 149, 0.344), rgba(87, 59, 149, 0.344)), url(' + topAlbum.image + ')' }"></div>
                 <div class="options">
-                    <p style="flex:2 2 0" class="title">{{topAlbum.artist_name}}- <b>{{topAlbum.name}}</b></p>
+                    <router-link :to="'/album/'+topAlbum.id"><p style="flex:2 2 0" class="title">{{topAlbum.artist_name}}- <b>{{topAlbum.name}}</b></p></router-link>
                     <a :href="topAlbum.zip" class="title" style="flex: 0 1 100px;margin-top:13px; color: var(--main); text-align: right" >&darr; Download</a>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                     <font-awesome-icon class="play" @click="playAlbum(album.id)" size="2x" icon="play-circle" style="color: var(--main);margin-top:150px; margin-left:10px;"/>
                 </div></router-link>
                 <div class="options">
-                    <router-link :to="'/album'+album.id" style="flex:2 2 0;margin-top:14px" class="title">{{album.artist_name}}- <b>{{album.name}}</b></router-link>
+                    <router-link :to="'/album/'+album.id" style="flex:2 2 0;margin-top:14px" class="title">{{album.artist_name}}- <b>{{album.name}}</b></router-link>
                     <a :href="album.zip" class="title" style="flex: 0 1 100px;margin-top:13px; color: var(--main); text-align: right" >&darr; Download</a>
                 </div>
             </div>
@@ -121,7 +121,7 @@ export default class Home extends Vue {
     .tops {
         display: flex;
         flex-wrap: wrap;
-        max-width: 96%;
+        max-width: 100%;
         .top-artist {
             flex: 2 2 0;
         }
@@ -171,7 +171,6 @@ export default class Home extends Vue {
         width: 100%;
         height: 300px;
         border-radius: 10px;
-        // background: linear-gradient(rgba(146, 59, 149, 0.349), rgba(149, 59, 144, 0.349)), url('https://i.pinimg.com/564x/1e/c0/0b/1ec00ba0b6604c4a80c93ae5f6487c42.jpg');
         background-position: center;
         background-size: cover;
     }
@@ -179,7 +178,6 @@ export default class Home extends Vue {
         width: 100%;
         height: 300px;
         border-radius: 10px;
-        // background: linear-gradient(rgba(59, 65, 149, 0.344), rgba(87, 59, 149, 0.344)), url('https://i.pinimg.com/564x/b2/c3/c5/b2c3c50fc67f3907bde21f0904166ff6.jpg');
         background-position: center;
         background-size: cover;
     }
@@ -189,23 +187,9 @@ export default class Home extends Vue {
         cursor: pointer;
     }
 
-    @media (max-width: 576px) {
-        .tops {
-            flex-flow: column;
-            width: 100%;
-        }
-    }
-    @media (max-width: 800px) and (min-width: 576px) {
-        .tops {
-            flex-flow: row;
-            .card {
-                flex: 2 2 0
-            }
-        }
-    }
     @media (max-width: 900px) {
         .card {
-            min-width: 250px
+            min-width: 290px
         }
     }
 </style>
