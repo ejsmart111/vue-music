@@ -29,6 +29,9 @@ const mutations = {
   setSideNav(state: any) {
     state.sideNav = !state.sideNav
   },
+  setSideNavFalse(state: any) {
+    state.sideNav = false
+  },
   setShuffle(state: InterState) {
     state.isShuffle = !state.isShuffle
   },

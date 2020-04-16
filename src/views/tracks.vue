@@ -14,37 +14,37 @@
           <table v-if="!loader">
               <thead>
                   <tr>
-                      <th>
+                      <th class="priority-1">
                           <p>#</p>
                       </th>
-                      <th style="width: 45%">
+                      <th class="priority-2" style="width: 45%">
                           <p>Tracks</p>
                       </th>
-                      <th>
+                      <th class="priority-3">
                           <font-awesome-icon class="play" size="2x" icon="play-circle" style="cursor:pointer;color:var(--text-light);font-size:20px;margin-bottom:15px"/>
                       </th>
-                      <th style="width: 25%">
+                      <th class="priority-4" style="width: 25%">
                           <p>Artist</p>
                       </th>
-                      <th>
+                      <th class="priority-5">
                           <p>Duration</p>
                       </th>
-                      <th>
+                      <th class="priority-6">
                           <p>Download</p>
                       </th>
                   </tr>
               </thead>
               <tbody>
                   <tr v-for="(track, index) in tracks" :key="index">
-                      <td><p>{{index+1}}</p></td>
-                      <td><p>{{track.name}}</p></td>
-                      <td>
+                      <td class="priority-1"><p>{{index+1}}</p></td>
+                      <td class="priority-2"><p>{{track.name}}</p></td>
+                      <td class="priority-3">
                         <font-awesome-icon class="play" @click="playSong(track, tracks)" size="2x" icon="play-circle" style="cursor:pointer;color:var(--main);font-size:20px;margin-bottom:10px"/>
                         <!-- <font-awesome-icon v-if="current.id !== track.id"  v-else class="play" @click="audio.pause()" size="2x" icon="pause-circle" style="cursor:pointer;color:var(--main);font-size:20px;"/> -->
                       </td>
-                      <td><router-link style="color:var(--text-dark)" :to="/artist/+track.artist_id"><p>{{track.artist_name}}</p></router-link></td>
-                      <td><p>{{convertTime(track.duration)}}</p></td>
-                      <td><a :href="track.audiodownload"><button style="margin-bottom:20px" class="btn-norm"><font-awesome-icon class="download" icon="download"/> Download</button></a></td>
+                      <td class="priority-4"><router-link style="color:var(--text-dark)" :to="/artist/+track.artist_id"><p>{{track.artist_name}}</p></router-link></td>
+                      <td class="priority-5"><p>{{convertTime(track.duration)}}</p></td>
+                      <td class="priority-6"><a :href="track.audiodownload"><button style="margin-bottom:20px" class="btn-norm"><font-awesome-icon class="download" icon="download"/> Download</button></a></td>
                   </tr>
               </tbody>
           </table>
@@ -223,6 +223,12 @@ export default class GenreTracks extends Vue {
 
     p {
         margin-top: 0;
+    }
+
+    @media (max-width: 600px) {
+        .priority-4, .priority-5 {
+            display: none
+        }
     }
 
     @media (max-width: 576px) {

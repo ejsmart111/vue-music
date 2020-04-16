@@ -116,8 +116,7 @@ export default class App extends Vue {
       transition: all .3s ease-in-out;
   }
 
-  .slide-fade-leave-active {
-  
+  .slide-fade-leave-active {  
       transition: all .1s ease-in-out; 
   }
 
@@ -134,7 +133,7 @@ export default class App extends Vue {
       transition: all .1s ease-in-out; 
   }
 
-  .slide-bota-enter, .slide-fade-leave-to {
+  .slide-bota-enter, .slide-bota-leave-to {
       transform: translateY(100px); 
   }
 

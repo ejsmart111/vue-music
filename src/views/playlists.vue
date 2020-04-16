@@ -19,7 +19,7 @@
                 <button class="butt next" @click="pageNext">Next</button>
             </div>
         </div>
-        <br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br>
     </div>
 </template>
 

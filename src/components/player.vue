@@ -6,14 +6,14 @@
             <div v-else class="album-art" style="width:70px; height: 70px;"></div>
         </div>
         <div class="song">
-            <div style="margin-left: 20px; margin-top:0px">
+            <router-link :to="'/album/'+current.album_id"><div style="margin-left: 20px; margin-top:0px">
                 <div v-if="current" class="row">
                     <p><span class="title">{{current.name}}</span><br><span class="artist">{{current.artist_name}}</span></p>
                 </div>
                 <div v-else class="row">
                     <p><span class="title">Song of the Year 2020</span><br><span class="artist">Artist Kawhi</span></p>
                 </div>
-            </div>
+            </div></router-link>
         </div>
         <div class="controls">
             <font-awesome-icon @click="playPrevious" style="margin-right: 10px" class="icons other" icon="backward"/>
@@ -24,7 +24,7 @@
 
         <div class="song-slider">
             <p style="color: var(--icons);font-family:nunito;margin-top:28px;">{{times}}</p>
-            <input class="range" style="margin-top:10px; margin-right:20px" ref="time" type="range" min="0" step="0.1" :max="audio.duration" v-model="audio.currentTime" />
+            <input class="range" style="margin-top:10px; margin-right:20px;width: 400px;" ref="time" type="range" min="0" step="0.1" :max="audio.duration" v-model="audio.currentTime" />
             <p style="color: var(--icons);font-family:nunito;margin-top:28px;">{{convertTime(current.duration)}}</p>
         </div>
         <div class="song-controllers" style="margin-top: 14px">
@@ -45,9 +45,9 @@
                 <font-awesome-icon @click="playNext" style="margin-left: 10px" class="icons other" icon="forward"/>
             </div>
             <div class="song-slider" style="margin: -10px auto">
-                <p style="color: var(--icons);font-family:nunito;margin-top:28px;">{{times}}</p>
-                <input class="range" ref="mobile-time" style="margin-top:10px" type="range" min="0" step="0.1" :max="audio.duration" v-model="audio.currentTime"/>                
-                <p style="color: var(--icons);font-family:nunito;margin-top:28px;">{{convertTime(current.duration)}}</p>
+                <p style="color:var(--icons);font-family:nunito;margin-top:26px;">{{times}}</p>
+                <input class="range" ref="mobile-time" style="margin-top:10px;margin-left:8px;max-width:200px" type="range" min="0" step="0.1" :max="audio.duration" v-model="audio.currentTime"/>                
+                <p style="color: var(--icons);font-family:nunito;margin-top:26px;margin-left:8px">{{convertTime(current.duration)}}</p>
             </div>
             <div style="margin-top: -10px" class="song-controllers">
                 <font-awesome-icon @click="repeat" :style="isRepeat?{color: 'var(--main)'}: {color: 'var(--icons)'}" class="icons other controllers" icon="redo"/>           
@@ -55,12 +55,12 @@
                 <font-awesome-icon v-if="mutes" @click="mute" style="color: var(--main)" class="icons other controllers" icon="volume-mute"/>
                 <font-awesome-icon v-else @click="mute" style="color: var(--icons)" class="icons other controllers" icon="volume-up"/>
             </div>
-            <div v-if="current" class="row" style="margin: 0 auto;text-align: center">
+            <router-link :to="'/album/'+current.album_id"><div v-if="current" class="row" style="margin: 0 auto;text-align: center">
                 <p><span class="title">{{current.name}}</span><br><span class="artist">{{current.artist_name}}</span></p>
             </div>
             <div v-else class="row" style="margin: 0 auto; text-align: center">
                 <p><span class="title">Song of the Year 2020</span><br><span class="artist">Artist Kahwi</span></p>
-            </div>
+            </div></router-link>
         </div>
       </div>
   </div>
@@ -165,7 +165,7 @@ export default class Player extends Vue {
     .all {
         display: none;
         flex-direction: row;
-        padding: 0px 30px 0 30px;
+        padding: 0px 30px 0 10px;
         margin: 0 auto;
         padding-top: 15px;
         padding-bottom: 15px;
@@ -276,7 +276,6 @@ export default class Player extends Vue {
         background: none;
         margin-top: -7px;
         margin-left: 30px;
-        width: 400px;
     }
 
     .range.volume {
@@ -284,7 +283,7 @@ export default class Player extends Vue {
     }
 
     .range::-webkit-slider-runnable-track {
-        background-color: #d7dbdd;
+        background-color: var(--main);
         height: 3px;
         border-radius: 3px;
         border: 1px solid transparent;
@@ -305,12 +304,12 @@ export default class Player extends Vue {
     }
 
     .range::-ms-fill-lower { 
-        background-color: #d7dbdd;
+        background-color: var(--main);
         border-radius: 3px;
     }
 
     .range::-ms-fill-upper { 
-        background-color: #d7dbdd;
+        background-color: var(--main);
         border-radius: 3px;
     }
 
@@ -372,5 +371,8 @@ export default class Player extends Vue {
         margin-left: 15px;
         font-size: 16px;
         margin-top: 17px;
+    }
+    a {
+        text-decoration: none;
     }
 </style>

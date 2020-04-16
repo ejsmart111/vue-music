@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-        <br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br>
     </div>
 </template>
 
@@ -48,13 +48,13 @@ export default class Genre extends Vue {
             name: 'Rap',
             link: 'rap',
             id: 3,
-            image: 'https://i.pinimg.com/564x/02/27/d6/0227d60b428325a9965f992aef89e96e.jpg',
+            image: 'https://i.pinimg.com/564x/d3/90/f6/d390f66e4335898f3b15a9ef24978336.jpg',
         },
         {
             name: 'Hip-Hop',
             link: 'hiphop',
             id: 4,
-            image: 'https://i.pinimg.com/564x/f6/6e/ef/f66eef74cad510e4a5c3189987d632ac.jpg',
+            image: 'https://i.pinimg.com/564x/c1/5c/30/c15c305c3d2d04256a5d7b27749ed593.jpg',
         },
         {
             name: 'Dark',
@@ -66,7 +66,7 @@ export default class Genre extends Vue {
             name: 'Classical',
             link: 'classical',
             id: 6,
-            image: 'https://i.pinimg.com/564x/55/e9/4d/55e94d02f739e1cccd3c0e657e6741ea.jpg',
+            image: 'https://i.pinimg.com/564x/96/ee/02/96ee02fbd19e746544f57e6553675983.jpg',
         },
         {
             name: 'Dance',
@@ -96,7 +96,7 @@ export default class Genre extends Vue {
             name: 'House',
             link: 'house',
             id: 11,
-            image: 'https://i.pinimg.com/564x/4a/ea/dc/4aeadc839682e100b33dd61daea9daf2.jpg',
+            image: 'https://i.pinimg.com/564x/2a/71/95/2a7195a92df3b989b1ca9c487805bc51.jpg',
         },
         {
             name: 'Rock',
@@ -114,6 +114,30 @@ export default class Genre extends Vue {
             name: 'Piano',
             link: 'piano',
             id: 14,
+            image: 'https://i.pinimg.com/564x/f4/60/0e/f4600ec07f5780b73e8f52869e692e3a.jpg',
+        },
+        {
+            name: 'Guitar',
+            link: 'guitar',
+            id: 17,
+            image: 'https://i.pinimg.com/564x/66/cd/43/66cd43ab54b5fda627a27cccd4734caa.jpg',
+        },
+        {
+            name: 'Alternative',
+            link: 'alternative',
+            id: 18,
+            image: 'https://i.pinimg.com/564x/2e/f4/8c/2ef48c968657f859a40f3973da74f071.jpg',
+        },
+        {
+            name: 'Pop',
+            link: 'pop',
+            id: 19,
+            image: 'https://i.pinimg.com/564x/4a/ea/dc/4aeadc839682e100b33dd61daea9daf2.jpg',
+        },
+        {
+            name: 'Latin',
+            link: 'latin',
+            id: 19,
             image: 'https://i.pinimg.com/564x/2e/f4/8c/2ef48c968657f859a40f3973da74f071.jpg',
         },
         {

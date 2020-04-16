@@ -85,6 +85,19 @@ html {
     }
 }
 
+@media (max-width: 600px) {
+    .tab-item {
+        flex: 0 0 0px;
+        font-family: nunito;
+        color: var(--text-dark);
+        text-align: center;
+        width: 100px;
+        margin: 10px !important;
+        font-weight: bold;
+        cursor: pointer;
+    }
+}
+
 .play {
     &:hover {
         transform: scale(1.2);

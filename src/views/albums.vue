@@ -17,33 +17,33 @@
           <table v-if="!loader">
               <thead>
                   <tr>
-                      <th>
+                      <th class="priority-1">
                           <p>#</p>
                       </th>
-                      <th style="width: 70%">
+                      <th class="priority-2" style="width: 70%">
                           <p>Tracks</p>
                       </th>
-                      <th>
+                      <th class="priority-3">
                           <font-awesome-icon class="play" size="2x" icon="play-circle" style="cursor:pointer;color:var(--text-light);font-size:20px;margin-bottom:10px"/>
                       </th>
-                      <th>
+                      <th class="priority-4">
                           <p>Duration</p>
                       </th>
-                      <th>
+                      <th class="priority-5">
                           <p>Download</p>
                       </th>
                   </tr>
               </thead>
               <tbody>
                   <tr v-for="(track, index) in album[0].tracks" :key="index">
-                      <td><p>{{track.position}}</p></td>
-                      <td><p>{{track.name}}</p></td>
-                      <td>
+                      <td class="priority-1"><p>{{track.position}}</p></td>
+                      <td class="priority-2"><p>{{track.name}}</p></td>
+                      <td class="priority-3">
                         <font-awesome-icon class="play" @click="playSong(track, album[0].tracks)" size="2x" icon="play-circle" style="cursor:pointer;color:var(--main);font-size:20px;margin-bottom:10px"/>
                         <!-- <font-awesome-icon v-if="current.id !== track.id"  v-else class="play" @click="audio.pause()" size="2x" icon="pause-circle" style="cursor:pointer;color:var(--main);font-size:20px;"/> -->
                       </td>
-                      <td><p>{{convertTime(track.duration)}}</p></td>
-                      <td><a :href="track.audiodownload"><button style="margin-bottom:20px" class="btn-norm"><font-awesome-icon class="download" icon="download"/> Download</button></a></td>
+                      <td class="priority-4"><p>{{convertTime(track.duration)}}</p></td>
+                      <td class="priority-5"><a :href="track.audiodownload"><button style="margin-bottom:20px" class="btn-norm"><font-awesome-icon class="download" icon="download"/> Download</button></a></td>
                   </tr>
               </tbody>
           </table>
@@ -171,6 +171,11 @@ export default class Album extends Vue {
             .one {
                 max-width: 92%;
             }
+        }
+    }
+    @media screen {
+        .priority-4 {
+            display: none;
         }
     }
     @media (max-width:800px) {
