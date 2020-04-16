@@ -9,6 +9,7 @@ import PlayList from '@/views/playlists.vue'
 import Plays from '@/views/plays.vue'
 import Genre from '@/views/genre.vue'
 import GenreTracks from '@/views/genreTracks.vue'
+import Tracks from '@/views/tracks.vue'
 
 Vue.use(VueRouter)
 
@@ -57,6 +58,11 @@ Vue.use(VueRouter)
     path: '/genres/tracks/:link',
     name: 'GenreTracks',
     component: GenreTracks,
+  },
+  {
+    path: '/tracks',
+    name: 'Tracks',
+    component: Tracks,
   },
 ]
 

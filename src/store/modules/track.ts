@@ -33,7 +33,7 @@ const actions = {
     fetchTopTracks({commit}: {commit: any}, payload: any) {
       commit('setTopTracks', [])
       return new Promise ((resolve, reject) => {
-        axios.get(base+'tracks/?client_id='+clientId+'&limit='+payload+'&format=jsonpretty&boost=popularity_week').then((response: any) => {
+        axios.get(base+'tracks/?client_id='+clientId+'&limit='+payload+'&format=jsonpretty&boost=popularity_month').then((response: any) => {
         resolve(response.data.results)
         commit('setTopTracks', response.data.results)
         }).catch((error: any) => {

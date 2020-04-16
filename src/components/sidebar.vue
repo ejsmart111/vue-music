@@ -14,7 +14,7 @@
                 <router-link to='/albums'><font-awesome-icon class="icons" icon="compact-disc"/> <span :class="{ 'active' : $route.path == '/albums'}" style="margin-left: 16px" class="link">Albums</span></router-link>
             </li>
             <li class="nav-links">
-                <router-link to='/'><font-awesome-icon class="icons" icon="microphone-alt"/> <span style="margin-left: 22px" class="link">Tracks</span></router-link>
+                <router-link to='/tracks'><font-awesome-icon class="icons" icon="microphone-alt"/> <span :class="{ 'active' : $route.path == '/tracks'}" style="margin-left: 22px" class="link">Tracks</span></router-link>
             </li>
             <!-- <li class="nav-links">
                 <router-link to='/'><font-awesome-icon class="icons" icon="broadcast-tower"/> <span style="margin-left: 12px" class="link">Radio Channels</span></router-link>
