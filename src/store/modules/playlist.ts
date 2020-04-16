@@ -23,10 +23,22 @@ const getters = {
 
 const actions = {
     fetchTopPlaylists({commit}: {commit: any}, payload: number) {
+      commit('setTopPlaylists', [])
       return new Promise ((resolve, reject) => {
-        axios.get(base+'playlists/?client_id='+clientId+'&format=jsonpretty').then((response: any) => {
+        axios.get(base+'playlists/?client_id='+clientId+'&format=jsonpretty&limit=16').then((response: any) => {
           resolve(response.data.results)
-          commit('setWeekAlbum', response.data.results)
+          commit('setTopPlaylists', response.data.results)
+        }).catch((error: any) => {
+          reject(error)
+        })
+      })
+    },
+    fetchTopPlaylistsPaged({commit}: {commit: any}, payload: number) {
+      commit('setTopPlaylists', [])
+      return new Promise ((resolve, reject) => {
+        axios.get(base+'playlists/?client_id='+clientId+'&format=jsonpretty&limit=16&offset='+payload).then((response: any) => {
+          resolve(response.data.results)
+          commit('setTopPlaylists', response.data.results)
         }).catch((error: any) => {
           reject(error)
         })

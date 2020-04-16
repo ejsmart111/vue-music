@@ -48,7 +48,7 @@ const actions = {
           resolve(response.data.results)
           commit('setTracks', response.data.results)
         }).catch((error: any) => {
-          resolve(error)
+          reject(error)
         })
       })
     },
@@ -59,7 +59,28 @@ const actions = {
           resolve(response.data.results)
           commit('setTracks', response.data.results)
         }).catch((error: any) => {
-          resolve(error)
+          reject(error)
+        })
+      })
+    },
+    fetchPlaylistTracks({commit}: {commit: any}, payload: any) {
+      return new Promise ((resolve: any, reject: any)=> {
+        axios.get(base+'playlists/tracks/?client_id='+clientId+'&format=jsonpretty&id='+payload).then((response: any) => {
+          resolve(response.data.results)
+          commit('setTracks', response.data.results)
+        }).catch((error: any) => {
+          reject(error)
+        })
+      })
+    },
+    fetchGenreTracks({commit}: {commit: any}, genre: any,) {
+      commit('setTracks', [])
+      return new Promise ((resolve, reject) => {
+        axios.get(base+'tracks/?client_id='+clientId+'&format=jsonpretty&tags='+genre.genre+'&limit=20&offset='+genre.offset).then((response: any) => {
+          resolve(response.data.results)
+          commit('setTracks', response.data.results)
+        }).catch((error: any) => {
+          reject(error)
         })
       })
     }

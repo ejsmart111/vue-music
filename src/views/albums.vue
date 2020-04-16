@@ -14,7 +14,7 @@
           </div>
       </div><br><br>
       <div class="second">
-          <table>
+          <table v-if="!loader">
               <thead>
                   <tr>
                       <th>
@@ -47,6 +47,7 @@
                   </tr>
               </tbody>
           </table>
+          <p class="artist" v-if="!album[0].tracks && !loader" style="color var(--text-light);text-align:center;font-size:18px;font-weight:bolder">Sorry no Info</p>
         <br><br><br><br><br><br><br><br><br><br><br><br>
       </div>
   </div>

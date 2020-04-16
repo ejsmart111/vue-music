@@ -5,7 +5,7 @@
                 <p>Top Albums</p>
             </div>
             <div :class="{ 'active' : view == 'month'}" @click="view = 'month'" class="tab-item">
-                <p>Top Albums for the Month</p>
+                <p>This Month's Top</p>
             </div>
         </div>
         <br>
@@ -14,7 +14,7 @@
             <div v-if="view === 'total'">
                 <div class="tops">
                     <div class="card top-tracks" v-for="(album, index) in albumTotal" :key="index+'s'">
-                        <router-link :to="'/album/'+album.id"><div class="tracks" :style="{ 'background-image': 'linear-gradient(rgba(0, 0, 0, 0.349), rgba(0, 0, 0, 0.349)),url(' + album.image + ')' }">
+                        <router-link :to="'/album/'+album.id"><div class="tracks" :style="{ 'background-image': 'url(' + album.image + ')' }">
                         </div>
                         <div class="options">
                             <p style="flex:2 2 0" class="title">{{album.artist_name}}- <b>{{album.name}}</b></p>
@@ -30,7 +30,7 @@
             <div v-if="view === 'month'">
                 <div class="tops">
                     <div class="card top-tracks" v-for="(album, index) in albumMonth" :key="index+'s'">
-                        <router-link :to="'/album/'+album.id"><div class="tracks" :style="{ 'background-image': 'linear-gradient(rgba(0, 0, 0, 0.349), rgba(0, 0, 0, 0.349)),url(' + album.image + ')' }">
+                        <router-link :to="'/album/'+album.id"><div class="tracks" :style="{ 'background-image': 'url(' + album.image + ')' }">
                         </div>
                         <div class="options">
                             <p style="flex:2 2 0" class="title">{{album.artist_name}}- <b>{{album.name}}</b></p>
@@ -74,7 +74,7 @@ export default class AlbumsList extends Vue {
     pageNext () {
         this.pageOffset += 16
         this.loader = true
-        this.$store.dispatch('albumModule/fetchPagesForTopAlbums', this.pageOffsetMonth).then(()=> {
+        this.$store.dispatch('albumModule/fetchPagesForTopAlbums', this.pageOffset).then(()=> {
             this.loader = false
             window.scrollTo(0,0);
             this.clicks ++;
@@ -84,7 +84,7 @@ export default class AlbumsList extends Vue {
     pageBack () {
         this.loader = true
         this.pageOffset -= 16
-        this.$store.dispatch('albumModule/fetchPagesForTopAlbums', this.pageOffsetMonth).then(() => {
+        this.$store.dispatch('albumModule/fetchPagesForTopAlbums', this.pageOffset).then(() => {
             this.loader = false
             window.scrollTo(0,0);
             this.clicks --;
@@ -116,7 +116,6 @@ export default class AlbumsList extends Vue {
     mounted() {
         window.scrollTo(0,0);
         this.$store.dispatch('albumModule/fetchTopAlbums').then((response: any) => {
-            window.console.log(response)
             this.loader = false
         })
         this.$store.dispatch('albumModule/fetchTopAlbumsMonth')

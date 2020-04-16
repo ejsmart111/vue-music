@@ -21,7 +21,7 @@
         <p class="heads">Top Tracks</p>
         <div class="tops">
             <div class="card top-tracks" v-for="(track, index) in topTracks" :key="index+'l'">
-                <div class="tracks" :style="{ 'background-image': 'linear-gradient(rgba(0, 0, 0, 0.349), rgba(0, 0, 0, 0.349)),url(' + track.image + ')' }">
+                <div class="tracks" :style="{ 'background-image': 'url(' + track.image + ')' }">
                     <font-awesome-icon class="play" @click="playSong(track, topTracks)" size="2x" icon="play-circle" style="color: var(--main);margin-top:150px; margin-left:10px;"/>
                 </div>
                 <div class="options">
@@ -34,7 +34,7 @@
         <p class="heads">Top Albums</p>
         <div class="tops">
             <div class="card top-tracks" v-for="(album, index) in weekAlbum" :key="index+'k'">
-                <router-link :to="'/album/'+album.id"><div class="tracks" :style="{ 'background-image': 'linear-gradient(rgba(0, 0, 0, 0.349), rgba(0, 0, 0, 0.349)),url(' + album.image + ')' }">
+                <router-link :to="'/album/'+album.id"><div class="tracks" :style="{ 'background-image': 'url(' + album.image + ')' }">
                     <font-awesome-icon class="play" @click="playAlbum(album.id)" size="2x" icon="play-circle" style="color: var(--main);margin-top:150px; margin-left:10px;"/>
                 </div></router-link>
                 <div class="options">
@@ -47,7 +47,7 @@
         <p class="heads">Top Artists</p>
         <div class="tops">
             <div class="card top-tracks" v-for="(artist, index) in weekArtist" :key="index+'s'">
-                <router-link :to="'/artist/'+artist.id"><div class="tracks" :style="{ 'background-image': 'linear-gradient(rgba(0, 0, 0, 0.349), rgba(0, 0, 0, 0.349)),url(' + artist.image + ')' }">
+                <router-link :to="'/artist/'+artist.id"><div class="tracks" :style="{ 'background-image': 'url(' + artist.image + ')' }">
                 </div>
                 <div class="options">
                     <p style="flex:2 2 0" class="title"><b>{{artist.name}}</b></p>

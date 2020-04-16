@@ -62,7 +62,8 @@ html {
     min-height: 35px;
     font-family: nunito;
     border-radius: 5px;
-    border: 0px
+    border: 0px;
+    cursor: pointer;
 }
 
 .tab {
@@ -75,11 +76,36 @@ html {
         margin-left: 0px;
         margin-top: 0px;
         text-align: center;
-        min-width: 200px;
+        min-width: 150px;
         font-weight: bold;
         cursor: pointer;
     }
     .active {
         border-bottom: 2px solid var(--main);
+    }
+}
+
+.play {
+    &:hover {
+        transform: scale(1.2);
+    }
+}
+
+.buttons {
+    display: flex;
+    font-family: nunito;
+    .butt {
+        background-color: var(--main);
+        border: 0px;
+        color: white;min-width: 80px;
+        padding: 0px;
+        margin: 10px;
+        cursor: pointer;
+    }
+    .next {
+        border-radius: 0 5px 5px 0;
+    }
+    .prev {
+        border-radius: 5px 0 0 5px;
     }
 }

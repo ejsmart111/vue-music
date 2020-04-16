@@ -16,14 +16,14 @@
             <li class="nav-links">
                 <router-link to='/'><font-awesome-icon class="icons" icon="microphone-alt"/> <span style="margin-left: 22px" class="link">Tracks</span></router-link>
             </li>
-            <li class="nav-links">
+            <!-- <li class="nav-links">
                 <router-link to='/'><font-awesome-icon class="icons" icon="broadcast-tower"/> <span style="margin-left: 12px" class="link">Radio Channels</span></router-link>
+            </li> -->
+            <li class="nav-links">
+                <router-link to='/genres'><font-awesome-icon class="icons" icon="music"/> <span :class="{ 'active' : $route.path == '/genres'}" style="margin-left: 18px" class="link">Genres</span></router-link>
             </li>
             <li class="nav-links">
-                <router-link to='/'><font-awesome-icon class="icons" icon="music"/> <span style="margin-left: 18px" class="link">Genres</span></router-link>
-            </li>
-            <li class="nav-links">
-                <router-link to='/'><font-awesome-icon class="icons" icon="headphones-alt"/> <span style="margin-left: 20px" class="link">Playlist</span></router-link>
+                <router-link to='/playlists'><font-awesome-icon class="icons" icon="headphones-alt"/> <span :class="{ 'active' : $route.path == '/playlists'}" style="margin-left: 20px" class="link">Playlist</span></router-link>
             </li>
           </ul>
       </div>

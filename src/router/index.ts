@@ -5,6 +5,10 @@ import Albums from "@/views/albums.vue"
 import Artist from '@/views/artist.vue'
 import ArtistList from '@/views/artistsList.vue'
 import AlbumList from '@/views/albumsList.vue'
+import PlayList from '@/views/playlists.vue'
+import Plays from '@/views/plays.vue'
+import Genre from '@/views/genre.vue'
+import GenreTracks from '@/views/genreTracks.vue'
 
 Vue.use(VueRouter)
 
@@ -33,6 +37,26 @@ Vue.use(VueRouter)
     path: '/albums/',
     name: 'AlbumList',
     component: AlbumList,
+  },
+  {
+    path: '/playlists/',
+    name: 'Playlist',
+    component: PlayList,
+  },
+  {
+    path: '/playlist/tracks/:id',
+    name: 'PlayTracks',
+    component: Plays,
+  },
+  {
+    path: '/genres',
+    name: 'Genres',
+    component: Genre,
+  },
+  {
+    path: '/genres/tracks/:link',
+    name: 'GenreTracks',
+    component: GenreTracks,
   },
 ]
 

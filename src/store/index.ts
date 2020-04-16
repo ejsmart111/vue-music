@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import artistModule from './modules/artists'
 import albumModule from './modules/album'
 import trackModule from './modules/track'
+import playlistModule from './modules/playlist'
 
 Vue.use(Vuex)
 
@@ -128,7 +129,8 @@ const store =  new Vuex.Store({
   modules: {
     artistModule,
     albumModule,
-    trackModule
+    trackModule,
+    playlistModule,
   }
 })
 

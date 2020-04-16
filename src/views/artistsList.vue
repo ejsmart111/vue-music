@@ -5,7 +5,7 @@
                 <p>Top Artists</p>
             </div>
             <div :class="{ 'active' : view == 'month'}" @click="view = 'month'" class="tab-item">
-                <p>Top Artists for the Month</p>
+                <p>This Month's Top</p>
             </div>
         </div>
         <br>
@@ -14,7 +14,7 @@
             <div v-if="view === 'total'">
                 <div class="tops">
                     <div class="card top-tracks" v-for="(artist, index) in artistTotal" :key="index+'s'">
-                        <router-link :to="'/artist/'+artist.id"><div class="tracks" :style="{ 'background-image': 'linear-gradient(rgba(0, 0, 0, 0.349), rgba(0, 0, 0, 0.349)),url(' + artist.image + ')' }">
+                        <router-link :to="'/artist/'+artist.id"><div class="tracks" :style="{ 'background-image': 'url(' + artist.image + ')' }">
                         </div>
                         <div class="options">
                             <p style="flex:2 2 0" class="title"><b>{{artist.name}}</b></p>
@@ -30,7 +30,7 @@
             <div v-if="view === 'month'">
                 <div class="tops">
                     <div class="card top-tracks" v-for="(artist, index) in artistMonth" :key="index+'s'">
-                        <router-link :to="'/artist/'+artist.id"><div class="tracks" :style="{ 'background-image': 'linear-gradient(rgba(0, 0, 0, 0.349), rgba(0, 0, 0, 0.349)),url(' + artist.image + ')' }">
+                        <router-link :to="'/artist/'+artist.id"><div class="tracks" :style="{ 'background-image': 'url(' + artist.image + ')' }">
                         </div>
                         <div class="options">
                             <p style="flex:2 2 0" class="title"><b>{{artist.name}}</b></p>
@@ -74,7 +74,7 @@ export default class ArtistsList extends Vue {
     pageNext () {
         this.pageOffset += 16
         this.loader = true
-        this.$store.dispatch('artistModule/fetchPagesForTopArtists', this.pageOffsetMonth).then(()=> {
+        this.$store.dispatch('artistModule/fetchPagesForTopArtists', this.pageOffset).then(()=> {
             this.loader = false
             window.scrollTo(0,0);
             this.clicks ++;
@@ -84,7 +84,7 @@ export default class ArtistsList extends Vue {
     pageBack () {
         this.loader = true
         this.pageOffset -= 16
-        this.$store.dispatch('artistModule/fetchPagesForTopArtists', this.pageOffsetMonth).then(() => {
+        this.$store.dispatch('artistModule/fetchPagesForTopArtists', this.pageOffset).then(() => {
             this.loader = false
             window.scrollTo(0,0);
             this.clicks --;
@@ -115,7 +115,7 @@ export default class ArtistsList extends Vue {
 
     mounted() {
         window.scrollTo(0,0);
-        this.$store.dispatch('artistModule/fetchTopArtists').then((response: any) => {
+        this.$store.dispatch('artistModule/fetchTopArtists').then(() => {
             this.loader = false
         })
         this.$store.dispatch('artistModule/fetchTopArtistsMonth')

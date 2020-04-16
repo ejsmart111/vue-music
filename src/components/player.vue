@@ -44,16 +44,18 @@
                 <font-awesome-icon @click="pause" v-show="!playing" class="icons play" icon="pause-circle"/>
                 <font-awesome-icon @click="playNext" style="margin-left: 10px" class="icons other" icon="forward"/>
             </div>
-            <div class="song-slider" style="margin: 10px auto">
+            <div class="song-slider" style="margin: -10px auto">
+                <p style="color: var(--icons);font-family:nunito;margin-top:28px;">{{times}}</p>
                 <input class="range" ref="mobile-time" style="margin-top:10px" type="range" min="0" step="0.1" :max="audio.duration" v-model="audio.currentTime"/>                
+                <p style="color: var(--icons);font-family:nunito;margin-top:28px;">{{convertTime(current.duration)}}</p>
             </div>
-            <div class="song-controllers">
+            <div style="margin-top: -10px" class="song-controllers">
                 <font-awesome-icon @click="repeat" :style="isRepeat?{color: 'var(--main)'}: {color: 'var(--icons)'}" class="icons other controllers" icon="redo"/>           
                 <font-awesome-icon @click="shuffle" :style="isShuffle?{color: 'var(--main)'}: {color: 'var(--icons)'}" class="icons other controllers" icon="random"/>
                 <font-awesome-icon v-if="mutes" @click="mute" style="color: var(--main)" class="icons other controllers" icon="volume-mute"/>
                 <font-awesome-icon v-else @click="mute" style="color: var(--icons)" class="icons other controllers" icon="volume-up"/>
             </div>
-            <div v-if="current" class="row" style="margin: 0 auto; text-align: center">
+            <div v-if="current" class="row" style="margin: 0 auto;text-align: center">
                 <p><span class="title">{{current.name}}</span><br><span class="artist">{{current.artist_name}}</span></p>
             </div>
             <div v-else class="row" style="margin: 0 auto; text-align: center">
@@ -165,7 +167,8 @@ export default class Player extends Vue {
         flex-direction: row;
         padding: 0px 30px 0 30px;
         margin: 0 auto;
-        padding-top: 10px;
+        padding-top: 15px;
+        padding-bottom: 15px;
         justify-content: center;
     }
 
