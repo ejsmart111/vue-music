@@ -12,7 +12,7 @@
       <div class="header">
         <component :is="'headerNav'"/>
       </div>
-      <div class="content" style="margin-top: 60px">
+      <div class="content" @click="$store.commit('setSideNavFalse')" style="margin-top: 60px">
         <router-view/>
       </div>
       <transition name="slide-bota">

@@ -8,9 +8,10 @@
                 <p>This Month's Top</p>
             </div>
         </div>
+        <pre v-if="error" style="color: var(--text-dark)">{{error}}</pre>
         <br>
         <loader v-if="loader"/>
-        <div v-else>
+        <div v-if="!loader && !error">
             <div v-if="view === 'total'">
                 <div class="tops">
                     <div class="card top-tracks" v-for="(album, index) in albumTotal" :key="index+'s'">
@@ -62,6 +63,7 @@ export default class AlbumsList extends Vue {
     pageOffsetAltMonth = 0
     clicksMonth = 1
     view = 'total'
+    error = null
 
     get albumTotal () {
         return this.$store.getters['albumModule/getAlbumsTotal']
@@ -117,6 +119,9 @@ export default class AlbumsList extends Vue {
         window.scrollTo(0,0);
         this.$store.dispatch('albumModule/fetchTopAlbums').then((response: any) => {
             this.loader = false
+        }).catch((error: any) => {
+            this.loader = false
+            this.error = error
         })
         this.$store.dispatch('albumModule/fetchTopAlbumsMonth')
     }

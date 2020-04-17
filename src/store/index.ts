@@ -22,7 +22,7 @@ const state = {
     current: null,
     tracksQueue: [],
     isShuffle: false,
-    isRepeat: false
+    isRepeat: false,
 }
 
 const mutations = {

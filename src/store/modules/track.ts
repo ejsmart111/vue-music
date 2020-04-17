@@ -83,6 +83,17 @@ const actions = {
           reject(error)
         })
       })
+    },
+    fetchSearchedTracks({commit}: {commit: any}, payload: any) {
+      commit('setTracks', [])
+      return new Promise((resolve, reject) => {
+        axios.get(base+'tracks?client_id='+clientId+'&format=jsonpretty&limit=50&name='+payload).then((response: any) => {
+          resolve(response.data.results)
+          commit('setTracks', response.data.results)
+        }).catch((error: any) => {
+          reject(error)
+        })
+      })
     }
 }
 

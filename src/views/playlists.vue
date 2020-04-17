@@ -1,7 +1,8 @@
 <template>
     <div>
+        <pre v-if="error" style="color: var(--text-dark)">{{error}}</pre>
         <loader v-if="loader"/>
-        <div v-else>
+        <div v-if="!loader && !error">
             <br><br><br>
             <div class="tops">
                 <div class="card top-tracks" v-for="(album, index) in playlist" :key="index+'s'">
@@ -34,6 +35,7 @@ export default class Playlist extends Vue {
     pageOffsetAlt = 0
     clicks = 1
     view = 'total'
+    error = null
     pictures = [
         'https://i.pinimg.com/564x/54/2c/7f/542c7feaddcbf4abe9a44146303b1cad.jpg',
         'https://i.pinimg.com/564x/8f/7f/53/8f7f5348d3ef93db0186c8f70f313382.jpg',
@@ -85,6 +87,9 @@ export default class Playlist extends Vue {
         window.scrollTo(0,0);
         this.$store.dispatch('playlistModule/fetchTopPlaylists').then((response: any) => {
             this.loader = false
+        }).catch((error: any) => {
+            this.loader = false
+            this.error = error
         })
     }
 }

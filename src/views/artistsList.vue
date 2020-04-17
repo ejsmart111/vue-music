@@ -9,8 +9,9 @@
             </div>
         </div>
         <br>
+        <pre v-if="error" style="color: var(--text-dark)">{{error}}</pre>
         <loader v-if="loader"/>
-        <div v-else>
+        <div v-if="!loader && !error">
             <div v-if="view === 'total'">
                 <div class="tops">
                     <div class="card top-tracks" v-for="(artist, index) in artistTotal" :key="index+'s'">
@@ -62,6 +63,7 @@ export default class ArtistsList extends Vue {
     pageOffsetAltMonth = 0
     clicksMonth = 1
     view = 'total'
+    error = null
 
     get artistTotal () {
         return this.$store.getters['artistModule/getArtistsTotal']
@@ -117,6 +119,9 @@ export default class ArtistsList extends Vue {
         window.scrollTo(0,0);
         this.$store.dispatch('artistModule/fetchTopArtists').then(() => {
             this.loader = false
+        }).catch((error: any) => {
+            this.loader = false
+            this.error = error
         })
         this.$store.dispatch('artistModule/fetchTopArtistsMonth')
     }
@@ -129,7 +134,7 @@ export default class ArtistsList extends Vue {
         flex-wrap: wrap;
         max-width: 100%;
         .card {
-            flex: 2 0 21%;
+            flex: 0 0 21%;
             margin: 10px;
             margin-top: 0;
             height: 300px;

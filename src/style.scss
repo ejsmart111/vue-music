@@ -20,7 +20,7 @@ html {
     --icons: #888787;
     --main: #E2364D;
     --theme-switch: rgb(61, 59, 68);
-    --search-border: rgb(37, 36, 39);
+    --search-border: rgb(19, 19, 20);
     --name-title: #D2D2D2;
     --shine: linear-gradient(to right, #1E2029 0%, rgb(26, 28, 34) 20%, rgb(19, 20, 29) 40%, rgb(13, 20, 27) 100%);
     --table-border: rgb(78, 77, 97)
@@ -49,6 +49,7 @@ html {
     border: 1px solid var(--search-border);
     background-color: var(--white);
     font-family: nunito;
+    color: var(--text-dark);
     &::placeholder {
         color: var(--text-light)
     }
@@ -68,15 +69,16 @@ html {
 
 .tab {
     display: flex;
+    flex-wrap: wrap;
     .tab-item {
         flex: 0 0 0px;
         font-family: nunito;
         color: var(--text-dark);
-        margin: 40px;
+        margin: 30px;
         margin-left: 0px;
         margin-top: 0px;
         text-align: center;
-        min-width: 150px;
+        min-width: 130px;
         font-weight: bold;
         cursor: pointer;
     }
@@ -87,12 +89,12 @@ html {
 
 @media (max-width: 600px) {
     .tab-item {
-        flex: 0 0 0px;
+        flex: 0 0 30%;
         font-family: nunito;
         color: var(--text-dark);
         text-align: center;
-        width: 100px;
-        margin: 10px !important;
+        max-width: 100px;
+        margin: 0px !important;
         font-weight: bold;
         cursor: pointer;
     }

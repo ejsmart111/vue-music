@@ -91,7 +91,7 @@ const actions = {
        })
      },
      fetchTopArtistsMonth({commit}: {commit: any}) {
-      commit('setArtistsTotal', [])
+      commit('setArtistsMonth', [])
      return new Promise ((resolve, reject) => {
        axios.get(base+'artists/?client_id='+clientId+'&format=jsonpretty&order=popularity_month&limit=16').then((response: any) => {
          resolve(response.data.results)
@@ -102,7 +102,7 @@ const actions = {
      })
    },
    fetchPagesForTopArtistsMonth({commit}: {commit: any}, payload: any) {
-    commit('setArtistsTotal', [])
+    commit('setArtistsMonth', [])
      return new Promise ((resolve, reject) => {
        axios.get(base+'artists/?client_id='+clientId+'&format=jsonpretty&order=popularity_month&limit=16&offset='+payload).then((response: any) => {
          resolve(response.data.results)
@@ -111,7 +111,18 @@ const actions = {
          reject(error)
        })
      })
-   }
+   },
+   fetchSearchedArtists({commit}: {commit: any}, payload: any) {
+    commit('setArtistsTotal', [])
+     return new Promise ((resolve, reject) => {
+       axios.get(base+'artists/?client_id='+clientId+'&format=jsonpretty&limit=50&name='+payload).then((response: any) => {
+         resolve(response.data.results)
+         commit('setArtistsTotal', response.data.results)
+       }).catch((error: any) => {
+         reject(error)
+       })
+     })
+   },
 }
 
 const artistModule = {

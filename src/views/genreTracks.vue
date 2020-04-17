@@ -36,7 +36,7 @@
               </thead>
               <tbody>
                   <tr v-for="(track, index) in tracks" :key="index">
-                      <td><p>{{index+1}}</p></td>
+                      <td><p>{{clicks==1?(index+1):clicks.toString()+(index+1)}}</p></td>
                       <td><p>{{track.name}}</p></td>
                       <td>
                         <font-awesome-icon class="play" @click="playSong(track, tracks)" size="2x" icon="play-circle" style="cursor:pointer;color:var(--main);font-size:20px;margin-bottom:10px"/>

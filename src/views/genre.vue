@@ -153,6 +153,7 @@ export default class Genre extends Vue {
             image: 'https://i.pinimg.com/564x/14/e5/dd/14e5dda26692163dfb47cff4c2f9a8cb.jpg'
         },
     ]
+    error = null
 
     mounted() {
         window.scrollTo(0,0);

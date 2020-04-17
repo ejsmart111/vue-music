@@ -1,13 +1,14 @@
 <template>
     <div>
+        <pre v-if="error" style="color: var(--text-dark)">{{error}}</pre>
         <loader v-if="loader"/>
-        <div v-else class="begin">
+        <div v-if="!loader && !error" class="begin">
             <div class="child one" :style="{ 'background-image': 'url(' + artistInfo.image + ')'}">
                 <div style="height: 100%"></div>
             </div>
             <div class="child two">
                 <p class="title">{{artistInfo.name}}</p>
-                <p class="artist"><span style="color: var(--main)">Website</span> : <router-link style="color: var(--text-dark)" :to="artistInfo.website">{{artistInfo.website}}</router-link></p>
+                <p class="artist"><span style="color: var(--main)">Website</span> : <a style="color: var(--text-dark)" target="blank" :href="artistInfo.website">{{artistInfo.website}}</a></p>
                 <p class="artist"><span style="color: var(--main)">Join Date</span> : {{artistInfo.joindate}}</p><br>
             </div>
         </div><br><br><br>
@@ -54,7 +55,7 @@
                         <font-awesome-icon class="play" @click="playSong(track, tracks.tracks)" size="2x" icon="play-circle" style="cursor:pointer;color:var(--main);font-size:20px;margin-bottom:10px"/>
                         <!-- <font-awesome-icon v-if="current.id !== track.id"  v-else class="play" @click="audio.pause()" size="2x" icon="pause-circle" style="cursor:pointer;color:var(--main);font-size:20px;"/> -->
                       </td>
-                      <td class="priority-4"><router-link style="color:var(--text-dark)" :to="'/albums/'+track.album_id"><p>{{track.album_name}}</p></router-link></td>
+                      <td class="priority-4"><router-link style="color:var(--text-dark)" :to="'/album/'+track.album_id"><p>{{track.album_name}}</p></router-link></td>
                       <td class="priority-5"><p>{{convertTime(track.duration)}}</p></td>
                       <td class="priority-6"><a :href="track.audiodownload"><button style="margin-bottom:20px" class="btn-norm"><font-awesome-icon class="download" icon="download"/> Download</button></a></td>
                   </tr>
@@ -84,6 +85,7 @@ import Component from 'vue-class-component'
 export default class Artist extends Vue {
     loader = true
     view = 'tracks'
+    error = null
 
     get artistInfo () {
         return this.$store.getters['artistModule/getArtistInfo'][0]
@@ -136,6 +138,9 @@ export default class Artist extends Vue {
         window.scrollTo(0,0);
         this.$store.dispatch('artistModule/fetchArtistInfo', this.$route.params.id).then((response: any) => {
             this.loader = false
+        }).catch((error: any) => {
+            this.loader = false
+            this.error = error
         })
         this.$store.dispatch('trackModule/fetchArtistTracks', this.$route.params.id).then((response: any) => {
             if (response.length > 0) {

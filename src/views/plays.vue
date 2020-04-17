@@ -39,7 +39,7 @@
               </thead>
               <tbody>
                   <tr v-for="(track, index) in playlist.tracks" :key="index">
-                      <td><p>{{index+1}}</p></td>
+                      <td><p>{{clicks==1?(index+1):clicks.toString()+(index+1)}}</p></td>
                       <td><p>{{track.name}}</p></td>
                       <td>
                         <font-awesome-icon class="play" @click="playSong(track, playlist.tracks)" size="2x" icon="play-circle" style="cursor:pointer;color:var(--main);font-size:20px;margin-bottom:10px"/>
@@ -124,7 +124,7 @@ export default class Artist extends Vue {
 
     mounted () {
         window.scrollTo(0,0);
-        this.$store.dispatch('trackModule/fetchPlaylistTracks', this.$route.params.id).then((response: any) => {
+        this.$store.dispatch('trackModule/fetchPlaylistTracks', this.$route.params.id).then(() => {
            this.loader = false
         })
     }

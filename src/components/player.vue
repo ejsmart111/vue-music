@@ -124,7 +124,7 @@ export default class Player extends Vue {
         this.$store.commit('playPreviousSong')
         this.audio.play()
     }
-    times = '0'
+    times = '00:00'
     slider () {
         setInterval(() => {
             if(this.audio.ended) {

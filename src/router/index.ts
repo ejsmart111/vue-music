@@ -10,6 +10,7 @@ import Plays from '@/views/plays.vue'
 import Genre from '@/views/genre.vue'
 import GenreTracks from '@/views/genreTracks.vue'
 import Tracks from '@/views/tracks.vue'
+import Search from '@/views/search.vue'
 
 Vue.use(VueRouter)
 
@@ -63,6 +64,11 @@ Vue.use(VueRouter)
     path: '/tracks',
     name: 'Tracks',
     component: Tracks,
+  },
+  {
+    path: '/search/:query',
+    name: 'Search',
+    component: Search,
   },
 ]
 

@@ -112,6 +112,17 @@ const actions = {
        })
      })
    },
+   fetchSearchrdAlbums({commit}: {commit: any}, payload: any) {
+    commit('setAlbums', [])
+     return new Promise ((resolve, reject) => {
+       axios.get(base+'albums/?client_id='+clientId+'&format=jsonpretty&limit=50&name='+payload).then((response: any) => {
+         resolve(response.data.results)
+         commit('setAlbums', response.data.results)
+       }).catch((error: any) => {
+         reject(error)
+       })
+     })
+   },
 }
 
 const albumModule = {

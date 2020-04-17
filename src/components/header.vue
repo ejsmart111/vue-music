@@ -3,7 +3,7 @@
         <font-awesome-icon @click="toggleNav" icon="bars" class="bar"/>
         <div class="no"></div>
         <div class="search">
-            <input class="form-input" placeholder="Search"/>
+            <input @keyup="searchAction" v-model="search" class="form-input" placeholder="Search"/>
         </div>
         <div class="image" style="display:flex">
             <img width="30" src="https://i2.sndcdn.com/avatars-kbAlPaWkY2jCGJdC-uR5g2g-t500x500.jpg" class="image-fluid profile-pic image-round"/>
@@ -22,6 +22,7 @@ import Component from 'vue-class-component'
 @Component
 export default class Header extends Vue {
     private theme = false
+    search = ''
 
     toggleNav(){
         this.$store.commit('setSideNav')
@@ -33,6 +34,13 @@ export default class Header extends Vue {
             document.documentElement.setAttribute('data-theme', 'light')
         }
         window.localStorage.setItem('theme', this.theme?'true':'false')
+    }
+
+    searchAction () {
+        const path = '/search/'+this.search
+        if (this.$route.path !== path) {
+            this.$router.push(path)
+        }
     }
 
     mounted() {
@@ -73,12 +81,20 @@ export default class Header extends Vue {
         margin-top: 3px;
         width: 300px;
         border: 0px;
-        color: white
+        &:focus {
+            outline: none;
+        }
     }
 
     .profile-pic {
         margin-top: 5px;
         border: 1px solid rgb(167, 167, 167);
+    }
+
+    @media (max-width: 600px) {
+        .form-input {
+            max-width: 220px
+        }
     }
 
     @media (max-width: 800px) {

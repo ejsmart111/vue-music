@@ -1,7 +1,8 @@
 <template>
   <div>
+      <pre v-if="error" style="color: var(--text-dark)">{{error}}</pre>
       <loader v-if="loader"/>
-      <div v-else>
+      <div v-if="!loader && !error">
         <div class="tops">
             <div style="margin-bottom:80px" class="card top-artist">
                 <p class="heads">Artist of the Week</p>
@@ -66,6 +67,7 @@ import Component from 'vue-class-component'
 @Component
 export default class Home extends Vue {
     loader = true
+    error = null
 
     get weekArtist() {
         return this.$store.getters['artistModule/getWeekArtist']?this.$store.getters['artistModule/getWeekArtist']:[]
@@ -111,6 +113,9 @@ export default class Home extends Vue {
         window.scrollTo(0,0);
         this.$store.dispatch('artistModule/fetchArtistOfTheWeek', 8).then(() => {
             this.loader = false
+        }).catch((error: any) => {
+            this.loader = false
+            this.error = error
         })
         this.$store.dispatch('albumModule/fetchAlbumOfTheWeek', 8)
         this.$store.dispatch('trackModule/fetchTopTracks', 8)
