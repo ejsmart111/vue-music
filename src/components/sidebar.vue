@@ -49,7 +49,7 @@ export default class Sidebar extends Vue {
     }
     .image-fluid {
         margin-left: 30px;
-        margin-top: 10px;
+        margin-top: 0px;
     }
     .nav-list {
         list-style-type: none;
