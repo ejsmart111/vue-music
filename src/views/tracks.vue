@@ -20,8 +20,8 @@
                       <th class="priority-2" style="width: 45%">
                           <p>Tracks</p>
                       </th>
-                      <th class="priority-3">
-                          <font-awesome-icon class="play" size="2x" icon="play-circle" style="cursor:pointer;color:var(--text-light);font-size:20px;margin-bottom:15px"/>
+                      <th style="width: 40px" class="priority-3">
+                          <font-awesome-icon class="play" size="2x" icon="play-circle" style="display:none;cursor:pointer;color:var(--text-light);font-size:20px;margin-bottom:15px"/>
                       </th>
                       <th class="priority-4" style="width: 25%">
                           <p>Artist</p>
@@ -194,7 +194,7 @@ export default class GenreTracks extends Vue {
     }
 
     table {
-        width: 96%;
+        width: 100%;
         font-family: nunito;
         // border-top: 1px solid var(--table-border);
         th {

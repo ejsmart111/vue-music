@@ -27,7 +27,7 @@ export default class AlbumsSearch extends Vue {
 }
 </script>
 
-<style>
+<style lang=scss scoped>
     .tops {
         display: flex;
         flex-wrap: wrap;

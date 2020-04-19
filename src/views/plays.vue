@@ -23,8 +23,8 @@
                       <th style="width: 45%">
                           <p>Tracks</p>
                       </th>
-                      <th>
-                          <font-awesome-icon class="play" size="2x" icon="play-circle" style="cursor:pointer;color:var(--text-light);font-size:20px;margin-bottom:15px"/>
+                      <th style="width: 40px" class="priority-3">
+                          <font-awesome-icon class="play" size="2x" icon="play-circle" style="display:none;cursor:pointer;color:var(--text-light);font-size:20px;margin-bottom:15px"/>
                       </th>
                       <th class="priorit-4" style="width: 25%">
                           <p>Artist</p>
@@ -39,7 +39,7 @@
               </thead>
               <tbody>
                   <tr v-for="(track, index) in playlist.tracks" :key="index">
-                      <td><p>{{clicks==1?(index+1):clicks.toString()+(index+1)}}</p></td>
+                      <td><p>{{index+1}}</p></td>
                       <td><p>{{track.name}}</p></td>
                       <td>
                         <font-awesome-icon class="play" @click="playSong(track, playlist.tracks)" size="2x" icon="play-circle" style="cursor:pointer;color:var(--main);font-size:20px;margin-bottom:10px"/>
@@ -206,7 +206,7 @@ export default class Artist extends Vue {
     }
 
     table {
-        width: 96%;
+        width: 100%;
         font-family: nunito;
         // border-top: 1px solid var(--table-border);
         th {

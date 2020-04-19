@@ -71,4 +71,16 @@ export default class Sidebar extends Vue {
     .nav-links {
         margin-top: 30px;
     }
+
+    @media (max-height: 612px) {
+        .navigations {
+            margin-top: -30px;
+            .nav-links {
+                margin-top: 20px;
+                a {
+                    font-size: 12px !important;
+                }
+            }
+        }
+    }
 </style>

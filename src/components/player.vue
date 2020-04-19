@@ -8,7 +8,7 @@
         <div class="song">
             <router-link :to="'/album/'+current.album_id"><div style="margin-left: 20px; margin-top:0px">
                 <div v-if="current" class="row">
-                    <p><span class="title">{{current.name}}</span><br><span class="artist">{{current.artist_name}}</span></p>
+                    <p><span class="title">{{current.name.length > 25?(current.name).substring(0,25)+'...': current.name}}</span><br><span class="artist">{{current.artist_name.length > 25?(current.artist_name).substring(0,25)+'...': current.artist_name}}</span></p>
                 </div>
                 <div v-else class="row">
                     <p><span class="title">Song of the Year 2020</span><br><span class="artist">Artist Kawhi</span></p>
@@ -56,7 +56,7 @@
                 <font-awesome-icon v-else @click="mute" style="color: var(--icons)" class="icons other controllers" icon="volume-up"/>
             </div>
             <router-link :to="'/album/'+current.album_id"><div v-if="current" class="row" style="margin: 0 auto;text-align: center">
-                <p><span class="title">{{current.name}}</span><br><span class="artist">{{current.artist_name}}</span></p>
+                <p><span class="title">{{current.name.length > 25?(current.name).substring(0,25)+'...': current.name}}</span><br><span class="artist">{{current.artist_name.length > 25?(current.artist_name).substring(0,25)+'...': current.artist_name}}</span></p>
             </div>
             <div v-else class="row" style="margin: 0 auto; text-align: center">
                 <p><span class="title">Song of the Year 2020</span><br><span class="artist">Artist Kahwi</span></p>

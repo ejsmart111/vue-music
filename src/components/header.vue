@@ -6,9 +6,9 @@
             <input @keyup="searchAction" v-model="search" class="form-input" placeholder="Search"/>
         </div>
         <div class="image" style="display:flex">
-            <img width="30" src="https://i2.sndcdn.com/avatars-kbAlPaWkY2jCGJdC-uR5g2g-t500x500.jpg" class="image-fluid profile-pic image-round"/>
+            <img width="30" height="30" src="https://i2.sndcdn.com/avatars-kbAlPaWkY2jCGJdC-uR5g2g-t500x500.jpg" class="image-fluid profile-pic image-round"/>
             <label class="switch">
-                <input @change="changeTheme" v-model="theme" type="checkbox" />    
+                <input style="cursor:pointer" @change="changeTheme" v-model="theme" type="checkbox" />    
                 <div></div>
             </label>
         </div>

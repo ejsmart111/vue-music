@@ -14,7 +14,7 @@
                           <font-awesome-icon class="play" size="2x" icon="play-circle" style="cursor:pointer;color:var(--text-light);font-size:20px;margin-bottom:0px"/>
                       </th>
                       <th class="priority-4" style="width: 25%">
-                          <p>Album</p>
+                          <p>Artist</p>
                       </th>
                       <th class="priority-5">
                           <p>Duration</p>
@@ -29,10 +29,10 @@
                       <td class="priority-1"><p>{{index+1}}</p></td>
                       <td class="priority-2"><p>{{track.name}}</p></td>
                       <td class="priority-3">
-                        <font-awesome-icon class="play" @click="playSong(track, tracks.tracks)" size="2x" icon="play-circle" style="cursor:pointer;color:var(--main);font-size:20px;margin-bottom:0px"/>
+                        <font-awesome-icon class="play" @click="playSong(track, songs)" size="2x" icon="play-circle" style="cursor:pointer;color:var(--main);font-size:20px;margin-bottom:0px"/>
                         <!-- <font-awesome-icon v-if="current.id !== track.id"  v-else class="play" @click="audio.pause()" size="2x" icon="pause-circle" style="cursor:pointer;color:var(--main);font-size:20px;"/> -->
                       </td>
-                      <td class="priority-4"><router-link style="color:var(--text-dark)" :to="'/album/'+track.album_id"><p>{{track.album_name}}</p></router-link></td>
+                      <td class="priority-4"><router-link style="color:var(--text-dark)" :to="'/artist/'+track.artist_id"><p>{{track.artist_name}}</p></router-link></td>
                       <td class="priority-5"><p>{{convertTime(track.duration)}}</p></td>
                       <td class="priority-6"><a :href="track.audiodownload"><button style="margin-bottom:20px" class="btn-norm"><font-awesome-icon class="download" icon="download"/> Download</button></a></td>
                   </tr>
@@ -56,8 +56,8 @@ export default class MusicSearch extends Vue {
     @Prop({default: false})
     more !: boolean
 
-    get audio () {
-        return this.$store.getters['audio']
+    get audio() {
+        return this.$store.getters['getAudio']
     }
 
     convertTime (secs: any) {
@@ -69,7 +69,6 @@ export default class MusicSearch extends Vue {
     }
 
     playSong (track: any, queue: any) {
-        this.audio.playbackRate = 1
         this.audio.src = track.audio
         this.$store.commit('setTracksQueue', queue)
         this.$store.commit('playTrack', track)
@@ -80,7 +79,7 @@ export default class MusicSearch extends Vue {
 
 <style lang="scss" scoped>
     table {
-        width: 96%;
+        width: 100%;
         font-family: nunito;
         // border-top: 1px solid var(--table-border);
         th {
@@ -106,6 +105,12 @@ export default class MusicSearch extends Vue {
         .priority-4, .priority-5 {
             display: none;
         }
+    }
+
+    .title {
+        color: var(--name-title);
+        font-size: 14px;
+        font-family: nunito;
     }
 
     a {
