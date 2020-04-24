@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <div class="body">
+    <transition name="slide-bota">
+      <div v-if="showFull" class="whole">
+        <component :is="'viewPlayer'"/>
+      </div>
+    </transition>
+    <div v-if="!showFull" class="body">
       <div class="sidebar">
         <component :is="'sidebar'"/>
       </div>
@@ -30,12 +35,14 @@ import Component from 'vue-class-component'
 import player from './components/player.vue'
 import headerNav from './components/header.vue'
 import sidebar from './components/sidebar.vue'
+import viewPlayer from './views/view.vue'
 
 @Component({
   components: {
     player,
     headerNav,
-    sidebar
+    sidebar,
+    viewPlayer
   }
 })
 export default class App extends Vue {
@@ -45,6 +52,10 @@ export default class App extends Vue {
 
     get current () {
         return this.$store.getters['getCurrent']
+    }
+
+    get showFull () {
+        return this.$store.getters['getShowFull']
     }
 }
 </script>
@@ -56,6 +67,16 @@ export default class App extends Vue {
     grid-template-rows: 60px auto auto;
     height: 100vh;
     width: 100vw
+  }
+
+  .whole {
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    background-color: var(--white-body);
+    z-index: 2200;
   }
 
   .sidebar, .sidebarz {

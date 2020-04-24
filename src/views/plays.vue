@@ -38,14 +38,14 @@
                   </tr>
               </thead>
               <tbody>
-                  <tr v-for="(track, index) in playlist.tracks" :key="index">
+                  <tr :class="{ 'playing' : current && current.id == track.id}" v-for="(track, index) in playlist.tracks" :key="index">
                       <td><p>{{index+1}}</p></td>
-                      <td><p>{{track.name}}</p></td>
+                      <td><p>{{track.name.length > 20?(track.name).substring(0,20)+ '...': track.name}}</p></td>
                       <td>
                         <font-awesome-icon class="play" @click="playSong(track, playlist.tracks)" size="2x" icon="play-circle" style="cursor:pointer;color:var(--main);font-size:20px;margin-bottom:10px"/>
                         <!-- <font-awesome-icon v-if="current.id !== track.id"  v-else class="play" @click="audio.pause()" size="2x" icon="pause-circle" style="cursor:pointer;color:var(--main);font-size:20px;"/> -->
                       </td>
-                      <td class="priority-4"><router-link style="color:var(--text-dark)" :to="/artist/+track.artist_id"><p>{{track.artist_name}}</p></router-link></td>
+                      <td class="priority-4"><router-link style="color:var(--text-dark)" :to="/artist/+track.artist_id"><p>{{track.artist_name.length > 20? (track.artist_name).substring(0,20): track.artist_name}}</p></router-link></td>
                       <td class="priority-5"><p>{{convertTime(track.duration)}}</p></td>
                       <td><a :href="track.audiodownload"><button style="margin-bottom:20px" class="btn-norm"><font-awesome-icon class="download" icon="download"/> Download</button></a></td>
                   </tr>
@@ -72,6 +72,10 @@ export default class Artist extends Vue {
     }
 
     get audio () {
+        return this.$store.getters['getAudio']
+    }
+
+    get current () {
         return this.$store.getters['getAudio']
     }
 

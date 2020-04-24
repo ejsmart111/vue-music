@@ -6,14 +6,14 @@
             <div v-else class="album-art" style="width:70px; height: 70px;"></div>
         </div>
         <div class="song">
-            <router-link :to="'/album/'+current.album_id"><div style="margin-left: 20px; margin-top:0px">
+            <div @click="$store.commit('showFullTrue')" style="margin-left: 20px; margin-top:0px; cursor:pointer">
                 <div v-if="current" class="row">
-                    <p><span class="title">{{current.name.length > 25?(current.name).substring(0,25)+'...': current.name}}</span><br><span class="artist">{{current.artist_name.length > 25?(current.artist_name).substring(0,25)+'...': current.artist_name}}</span></p>
+                    <p><span class="title">{{current.name.length > 18?(current.name).substring(0,18)+'...': current.name}}</span><br><span class="artist">{{current.artist_name.length > 25?(current.artist_name).substring(0,25)+'...': current.artist_name}}</span></p>
                 </div>
                 <div v-else class="row">
                     <p><span class="title">Song of the Year 2020</span><br><span class="artist">Artist Kawhi</span></p>
                 </div>
-            </div></router-link>
+            </div>
         </div>
         <div class="controls">
             <font-awesome-icon @click="playPrevious" style="margin-right: 10px" class="icons other" icon="backward"/>
@@ -44,23 +44,20 @@
                 <font-awesome-icon @click="pause" v-show="!playing" class="icons play" icon="pause-circle"/>
                 <font-awesome-icon @click="playNext" style="margin-left: 10px" class="icons other" icon="forward"/>
             </div>
-            <div class="song-slider" style="margin: -10px auto">
+            <!-- <div class="song-slider" style="margin: -10px auto">
                 <p style="color:var(--icons);font-family:nunito;margin-top:26px;">{{times}}</p>
                 <input class="range" ref="mobile-time" style="margin-top:10px;margin-left:8px;max-width:200px" type="range" min="0" step="0.1" :max="audio.duration" v-model="audio.currentTime"/>                
                 <p style="color: var(--icons);font-family:nunito;margin-top:26px;margin-left:8px">{{convertTime(current.duration)}}</p>
-            </div>
-            <div style="margin-top: -10px" class="song-controllers">
+            </div> -->
+            <!-- <div style="margin-top: -10px" class="song-controllers">
                 <font-awesome-icon @click="repeat" :style="isRepeat?{color: 'var(--main)'}: {color: 'var(--icons)'}" class="icons other controllers" icon="redo"/>           
                 <font-awesome-icon @click="shuffle" :style="isShuffle?{color: 'var(--main)'}: {color: 'var(--icons)'}" class="icons other controllers" icon="random"/>
                 <font-awesome-icon v-if="mutes" @click="mute" style="color: var(--main)" class="icons other controllers" icon="volume-mute"/>
                 <font-awesome-icon v-else @click="mute" style="color: var(--icons)" class="icons other controllers" icon="volume-up"/>
-            </div>
-            <router-link :to="'/album/'+current.album_id"><div v-if="current" class="row" style="margin: 0 auto;text-align: center">
+            </div> -->
+            <div @click="$store.commit('showFullTrue')" v-if="current" class="row" style="margin: 0 auto;text-align: center">
                 <p><span class="title">{{current.name.length > 25?(current.name).substring(0,25)+'...': current.name}}</span><br><span class="artist">{{current.artist_name.length > 25?(current.artist_name).substring(0,25)+'...': current.artist_name}}</span></p>
             </div>
-            <div v-else class="row" style="margin: 0 auto; text-align: center">
-                <p><span class="title">Song of the Year 2020</span><br><span class="artist">Artist Kahwi</span></p>
-            </div></router-link>
         </div>
       </div>
   </div>
@@ -196,7 +193,7 @@ export default class Player extends Vue {
         }
     }
 
-    @media (max-width: 1300px) and (min-width: 300px) {
+    @media (max-width: 1190px) {
         .large {
             display: none;
         }
@@ -276,6 +273,7 @@ export default class Player extends Vue {
         background: none;
         margin-top: -7px;
         margin-left: 30px;
+        cursor: pointer;
     }
 
     .range.volume {

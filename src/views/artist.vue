@@ -48,14 +48,14 @@
                   </tr>
               </thead>
               <tbody>
-                  <tr v-for="(track, index) in songs" :key="index">
+                  <tr :class="{ 'playing' :current && current.id == track.id}" v-for="(track, index) in songs" :key="index">
                       <td class="priority-1"><p>{{index+1}}</p></td>
-                      <td class="priority-2"><p>{{track.name}}</p></td>
+                      <td class="priority-2"><p>{{track.name.length>20?(track.name).substring(0,20)+'...':track.name}}</p></td>
                       <td class="priority-3">
                         <font-awesome-icon class="play" @click="playSong(track, tracks.tracks)" size="2x" icon="play-circle" style="cursor:pointer;color:var(--main);font-size:20px;margin-bottom:10px"/>
                         <!-- <font-awesome-icon v-if="current.id !== track.id"  v-else class="play" @click="audio.pause()" size="2x" icon="pause-circle" style="cursor:pointer;color:var(--main);font-size:20px;"/> -->
                       </td>
-                      <td class="priority-4"><router-link style="color:var(--text-dark)" :to="'/album/'+track.album_id"><p>{{track.album_name}}</p></router-link></td>
+                      <td class="priority-4"><router-link style="color:var(--text-dark)" :to="'/album/'+track.album_id"><p>{{track.album_name.length>20?(track.album_name).substring(0,20)+'...':track.album_name}}</p></router-link></td>
                       <td class="priority-5"><p>{{convertTime(track.duration)}}</p></td>
                       <td class="priority-6"><a :href="track.audiodownload"><button style="margin-bottom:20px" class="btn-norm"><font-awesome-icon class="download" icon="download"/> Download</button></a></td>
                   </tr>
@@ -103,6 +103,10 @@ export default class Artist extends Vue {
 
     get audio () {
         return this.$store.getters['getAudio']
+    }
+
+    get current () {
+        return this.$store.getters['getCurrent']
     }
 
     playAlbum(id: any) {
@@ -258,6 +262,10 @@ export default class Artist extends Vue {
                 display: none;
             }
         }
+    }
+
+    .playing {
+        background-color: var(--table-hover);
     }
     
     a {

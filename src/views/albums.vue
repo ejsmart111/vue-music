@@ -35,9 +35,9 @@
                   </tr>
               </thead>
               <tbody>
-                  <tr v-for="(track, index) in album[0].tracks" :key="index">
+                  <tr :class="{ 'playing' : current && current.id == track.id}"  v-for="(track, index) in album[0].tracks" :key="index">
                       <td class="priority-1"><p>{{track.position}}</p></td>
-                      <td class="priority-2"><p>{{track.name}}</p></td>
+                      <td class="priority-2"><p>{{track.name.length>20?(track.name).substring(0,20)+'...':track.name}}</p></td>
                       <td class="priority-3">
                         <font-awesome-icon class="play" @click="playSong(track, album[0].tracks)" size="2x" icon="play-circle" style="cursor:pointer;color:var(--main);font-size:20px;margin-bottom:10px"/>
                         <!-- <font-awesome-icon v-if="current.id !== track.id"  v-else class="play" @click="audio.pause()" size="2x" icon="pause-circle" style="cursor:pointer;color:var(--main);font-size:20px;"/> -->
@@ -173,7 +173,7 @@ export default class Album extends Vue {
             }
         }
     }
-    @media screen {
+    @media (max-width: 600px) {
         .priority-4 {
             display: none;
         }

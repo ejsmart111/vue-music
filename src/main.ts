@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUserSecret, faDownload, faClock, faBackward, faForward, faPlayCircle, faRedo, faRandom, faVolumeMute, faInfoCircle, faHome, faUser, faCompactDisc, faMicrophoneAlt, faBroadcastTower, faMusic, faHeadphonesAlt, faBars, faPauseCircle, faVolumeUp } from '@fortawesome/free-solid-svg-icons'
+import { faUserSecret, faDownload, faClock, faChevronDown, faBackward, faForward, faPlayCircle, faRedo, faRandom, faVolumeMute, faInfoCircle, faHome, faUser, faCompactDisc, faMicrophoneAlt, faBroadcastTower, faMusic, faHeadphonesAlt, faBars, faPauseCircle, faVolumeUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import './style.scss'
 import axios from 'axios'
@@ -14,7 +14,7 @@ Vue.use(VueAxios, axios)
 Vue.component('loader', Loader)
 Vue.config.productionTip = false
 
-library.add(faUserSecret, faDownload, faClock, faBackward, faForward, faPlayCircle, faRedo, faRandom, faVolumeMute, faInfoCircle, faHome, faUser, faCompactDisc, faMicrophoneAlt, faBroadcastTower, faMusic, faHeadphonesAlt, faBars, faPauseCircle, faVolumeUp)
+library.add(faUserSecret, faDownload, faClock, faChevronDown, faBackward, faForward, faPlayCircle, faRedo, faRandom, faVolumeMute, faInfoCircle, faHome, faUser, faCompactDisc, faMicrophoneAlt, faBroadcastTower, faMusic, faHeadphonesAlt, faBars, faPauseCircle, faVolumeUp)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

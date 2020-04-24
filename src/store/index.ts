@@ -14,6 +14,7 @@ interface InterState {
     tracksQueue: any;
     isShuffle: boolean;
     isRepeat: boolean;
+    showFull: boolean;
 }
 
 const state = {
@@ -23,6 +24,7 @@ const state = {
     tracksQueue: [],
     isShuffle: false,
     isRepeat: false,
+    showFull: false,
 }
 
 const mutations = {
@@ -40,6 +42,12 @@ const mutations = {
   },
   setRepeat(state: InterState) {
     state.isRepeat = !state.isRepeat
+  },
+  showFullTrue(state: InterState){
+    state.showFull = true
+  },
+  showFullFalse(state: InterState){
+    state.showFull = false
   },
   playTrack(state: InterState, payload: any) {
     let indexToUpdate = -1
@@ -118,6 +126,9 @@ const getters = {
   },
   getRepeat (state: InterState) {
     return state.isRepeat
+  },
+  getShowFull (state: InterState) {
+    return state.showFull
   }
 }
 
