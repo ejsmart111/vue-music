@@ -127,11 +127,11 @@ export default class Player extends Vue {
             if(this.audio.ended) {
                 this.playNext()
             }
+            this.times = this.convertTime(Math.round(this.audio.currentTime))
             const c = this.$refs.time as any
             const d = this.$refs['mobile-time'] as any
             c.value = Math.round(this.audio.currentTime)
             d.value = Math.round(this.audio.currentTime)
-            this.times = this.convertTime(Math.round(this.audio.currentTime))
         }, 1000)
     }
     mute () {
@@ -244,6 +244,9 @@ export default class Player extends Vue {
         flex: 2 2 200px;
         display: flex;
         max-height: 100%;
+        &:hover {
+            background:rgb(26, 26, 36);
+        }
     }
 
     .play {

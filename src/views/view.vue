@@ -91,11 +91,11 @@ export default class ViewPlayer extends Vue {
     times = '00:00'
     slider () {
         setInterval(() => {
+            this.times = this.convertTime(Math.round(this.audio.currentTime))
             const c = this.$refs.time as any
             const d = this.$refs['mobile-time'] as any
             c.value = Math.round(this.audio.currentTime)
             d.value = Math.round(this.audio.currentTime)
-            this.times = this.convertTime(Math.round(this.audio.currentTime))
         }, 1000)
     }
 

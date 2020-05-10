@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import HomeComponent from '@/views/home.vue'
+import HomeComponent from '@/views/Home.vue'
 import Albums from "@/views/albums.vue"
 import Artist from '@/views/artist.vue'
 import ArtistList from '@/views/artistsList.vue'

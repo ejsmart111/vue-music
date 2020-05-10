@@ -1,11 +1,11 @@
 <template>
-  <div id="app">
-    <transition name="slide-bota">
-      <div v-if="showFull" class="whole">
+  <div id="app">    
+    <div v-if="showFull" class="whole">
+      <transition name="slide-bota">
         <component :is="'viewPlayer'"/>
-      </div>
-    </transition>
-    <div v-if="!showFull" class="body">
+      </transition>
+    </div>
+    <div v-else class="body">
       <div class="sidebar">
         <component :is="'sidebar'"/>
       </div>
