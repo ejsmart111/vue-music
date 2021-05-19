@@ -49,7 +49,7 @@ const actions = {
      fetchArtistOfTheWeek({commit}: {commit: any}, payload: any) {
         commit('setWeekArtist', [])
        return new Promise ((resolve, reject) => {
-         axios.get(base+'artists/?client_id='+clientId+'&limit='+payload+'&format=jsonpretty&order=popularity_month').then((response: any) => {
+         axios.get(base+'artists/?client_id='+clientId+'&limit='+payload+'&format=jsonpretty&imagesize=600&order=popularity_month').then((response: any) => {
           resolve(response.data.results)
           commit('setWeekArtist', response.data.results)
          }).catch((error: any) => {
@@ -60,7 +60,7 @@ const actions = {
      fetchArtistInfo({commit}: {commit: any}, payload: any) {
       commit ('setArtistInfo', [])
        return new Promise ((resolve, reject) => {
-         axios.get(base+'artists/?client_id='+clientId+'&format=jsonpretty&id='+payload).then((response: any) => {
+         axios.get(base+'artists/?client_id='+clientId+'&format=jsonpretty&imagesize=600&id='+payload).then((response: any) => {
            resolve (response.data.results)
            commit ('setArtistInfo', response.data.results)
          }).catch((error) => {
@@ -71,7 +71,7 @@ const actions = {
      fetchTopArtists({commit}: {commit: any}) {
         commit('setArtistsTotal', [])
        return new Promise ((resolve, reject) => {
-         axios.get(base+'artists/?client_id='+clientId+'&format=jsonpretty&order=popularity_total&limit=16').then((response: any) => {
+         axios.get(base+'artists/?client_id='+clientId+'&format=jsonpretty&imagesize=600&order=popularity_total&limit=16').then((response: any) => {
            resolve(response.data.results)
            commit('setArtistsTotal', response.data.results)
          }).catch((error: any) => {
@@ -82,7 +82,7 @@ const actions = {
      fetchPagesForTopArtists({commit}: {commit: any}, payload: any) {
       commit('setArtistsTotal', [])
        return new Promise ((resolve, reject) => {
-         axios.get(base+'artists/?client_id='+clientId+'&format=jsonpretty&order=popularity_total&limit=16&offset='+payload).then((response: any) => {
+         axios.get(base+'artists/?client_id='+clientId+'&format=jsonpretty&imagesize=600&order=popularity_total&limit=16&offset='+payload).then((response: any) => {
            resolve(response.data.results)
            commit('setArtistsTotal', response.data.results)
          }).catch((error: any) => {
@@ -93,7 +93,7 @@ const actions = {
      fetchTopArtistsMonth({commit}: {commit: any}) {
       commit('setArtistsMonth', [])
      return new Promise ((resolve, reject) => {
-       axios.get(base+'artists/?client_id='+clientId+'&format=jsonpretty&order=popularity_month&limit=16').then((response: any) => {
+       axios.get(base+'artists/?client_id='+clientId+'&format=jsonpretty&imagesize=600&order=popularity_month&limit=16').then((response: any) => {
          resolve(response.data.results)
          commit('setArtistsMonth', response.data.results)
        }).catch((error: any) => {
@@ -104,7 +104,7 @@ const actions = {
    fetchPagesForTopArtistsMonth({commit}: {commit: any}, payload: any) {
     commit('setArtistsMonth', [])
      return new Promise ((resolve, reject) => {
-       axios.get(base+'artists/?client_id='+clientId+'&format=jsonpretty&order=popularity_month&limit=16&offset='+payload).then((response: any) => {
+       axios.get(base+'artists/?client_id='+clientId+'&format=jsonpretty&imagesize=600&order=popularity_month&limit=16&offset='+payload).then((response: any) => {
          resolve(response.data.results)
          commit('setArtistsMonth', response.data.results)
        }).catch((error: any) => {
@@ -115,7 +115,7 @@ const actions = {
    fetchSearchedArtists({commit}: {commit: any}, payload: any) {
     commit('setArtistsTotal', [])
      return new Promise ((resolve, reject) => {
-       axios.get(base+'artists/?client_id='+clientId+'&format=jsonpretty&limit=50&name='+payload).then((response: any) => {
+       axios.get(base+'artists/?client_id='+clientId+'&format=jsonpretty&imagesize=600&limit=50&namesearch='+payload).then((response: any) => {
          resolve(response.data.results)
          commit('setArtistsTotal', response.data.results)
        }).catch((error: any) => {

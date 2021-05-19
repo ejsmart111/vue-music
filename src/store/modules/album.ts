@@ -49,7 +49,7 @@ const actions = {
     fetchAlbumOfTheWeek({commit}: {commit: any}, payload: number) {
       commit('setWeekAlbum', [])
       return new Promise ((resolve, reject) => {
-        axios.get(base+'albums/?client_id='+clientId+'&limit='+payload+'&format=jsonpretty&order=popularity_week').then((response: any) => {
+        axios.get(base + 'albums/?client_id=' + clientId + '&limit=' + payload +'&format=jsonpretty&order=popularity_week&imagesize=600').then((response: any) => {
           resolve(response.data.results)
           commit('setWeekAlbum', response.data.results)
         }).catch((error: any) => {
@@ -60,7 +60,7 @@ const actions = {
     fetchArtistAlbums ({commit}: {commit: any}, payload: any) {
     commit('setAlbums', [])
       return new Promise ((resolve, reject) => {
-        axios.get(base+'artists/albums/?client_id='+clientId+'&format=jsonpretty&id='+payload).then((response: any) => {
+        axios.get(base+'artists/albums/?client_id='+clientId+'&format=jsonpretty&imagesize=600&id='+payload).then((response: any) => {
           resolve(response.data.results)
           commit('setAlbums', response.data.results)
         }).catch((error: any) => {
@@ -71,7 +71,7 @@ const actions = {
     fetchTopAlbums({commit}: {commit: any}) {
       commit('setAlbumsTotal', [])
      return new Promise ((resolve, reject) => {
-       axios.get(base+'albums/?client_id='+clientId+'&format=jsonpretty&order=popularity_total&limit=16').then((response: any) => {
+       axios.get(base+'albums/?client_id='+clientId+'&format=jsonpretty&order=popularity_total&imagesize=600&limit=16').then((response: any) => {
          resolve(response.data.results)
          commit('setAlbumsTotal', response.data.results)
        }).catch((error: any) => {
@@ -82,7 +82,7 @@ const actions = {
    fetchPagesForTopAlbums({commit}: {commit: any}, payload: any) {
     commit('setAlbumsTotal', [])
      return new Promise ((resolve, reject) => {
-       axios.get(base+'albums/?client_id='+clientId+'&format=jsonpretty&order=popularity_total&limit=16&offset='+payload).then((response: any) => {
+       axios.get(base+'albums/?client_id='+clientId+'&format=jsonpretty&order=popularity_total&imagesize=600&limit=16&offset='+payload).then((response: any) => {
          resolve(response.data.results)
          commit('setAlbumsTotal', response.data.results)
        }).catch((error: any) => {
@@ -93,7 +93,7 @@ const actions = {
     fetchTopAlbumsMonth({commit}: {commit: any}) {
       commit('setAlbumsMonth', [])
      return new Promise ((resolve, reject) => {
-       axios.get(base+'albums/?client_id='+clientId+'&format=jsonpretty&order=popularity_month&limit=16').then((response: any) => {
+       axios.get(base+'albums/?client_id='+clientId+'&format=jsonpretty&order=popularity_month&imagesize=600&limit=16').then((response: any) => {
          resolve(response.data.results)
          commit('setAlbumsMonth', response.data.results)
        }).catch((error: any) => {
@@ -104,7 +104,7 @@ const actions = {
    fetchPagesForTopAlbumsMonth({commit}: {commit: any}, payload: any) {
     commit('setAlbumsMonth', [])
      return new Promise ((resolve, reject) => {
-       axios.get(base+'albums/?client_id='+clientId+'&format=jsonpretty&order=popularity_month&limit=16&offset='+payload).then((response: any) => {
+       axios.get(base+'albums/?client_id='+clientId+'&format=jsonpretty&order=popularity_month&limit=16&imagesize=600&offset='+payload).then((response: any) => {
          resolve(response.data.results)
          commit('setAlbumsMonth', response.data.results)
        }).catch((error: any) => {
@@ -115,7 +115,7 @@ const actions = {
    fetchSearchrdAlbums({commit}: {commit: any}, payload: any) {
     commit('setAlbums', [])
      return new Promise ((resolve, reject) => {
-       axios.get(base+'albums/?client_id='+clientId+'&format=jsonpretty&limit=50&name='+payload).then((response: any) => {
+       axios.get(base+'albums/?client_id='+clientId+'&format=jsonpretty&limit=50&imagesize=600&namesearch='+payload).then((response: any) => {
          resolve(response.data.results)
          commit('setAlbums', response.data.results)
        }).catch((error: any) => {
