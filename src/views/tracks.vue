@@ -9,7 +9,7 @@
                 <p class="title">Top Songs for the Month</p>
             </div>
         </div><br><br><br>
-        
+
         <div class="second">
           <table v-if="!loader">
               <thead>
@@ -57,6 +57,7 @@
 </template>
 
 <script lang="ts">
+import { ArtistTrackModel } from '@/models'
 import Vue from 'vue'
 import Component from 'vue-class-component'
 
@@ -76,7 +77,7 @@ export default class GenreTracks extends Vue {
         return this.$store.getters['getCurrent']
     }
 
-    convertTime (secs: any) {
+    convertTime (secs: number) {
         const min = Math.floor(secs / 60);
         const sec = secs % 60;
         const minute = (min < 10) ? "0" + min : min;
@@ -84,7 +85,7 @@ export default class GenreTracks extends Vue {
         return (minute + ':' + seconds);
     }
 
-    playSong (track: any, queue: any) {
+    playSong (track: ArtistTrackModel, queue: ArtistTrackModel[]) {
         this.audio.playbackRate = 1
         this.audio.src = track.audio
         this.$store.commit('setTracksQueue', queue)
@@ -94,7 +95,7 @@ export default class GenreTracks extends Vue {
 
     mounted () {
         window.scrollTo(0,0);
-        this.$store.dispatch('trackModule/fetchTopTracks', 40).then((response: any) => {
+        this.$store.dispatch('trackModule/fetchTopTracks', 40).then(() => {
            this.loader = false
         })
     }
@@ -219,7 +220,7 @@ export default class GenreTracks extends Vue {
             color: var(--text-dark);
         }
     }
-    
+
     a {
         text-decoration: none;
         cursor: pointer;

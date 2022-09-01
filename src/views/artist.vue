@@ -22,7 +22,7 @@
             </div>
         </div>
         <br>
-        
+
         <div class="second" v-if="view === 'tracks'">
           <table v-if="!loader">
               <thead>
@@ -69,7 +69,7 @@
                   <font-awesome-icon @click="playAlbum(album.id)" class="play" size="2x" icon="play-circle" style="color: var(--main);margin-top:150px; margin-left:10px;"/>
               </div></router-link><br>
                 <router-link :to="'/album/'+album.id" style="flex:2 2 0;" class="name"><b>{{album.name}} ({{album.releasedate.substring(0,4)}})</b></router-link>
-          </div>          
+          </div>
       </div>
       <p class="artist" v-if="!tracks.tracks && !loader" style="color var(--text-light);text-align:center;font-size:18px;font-weight:bolder">Sorry no Info</p>
       <!-- <pre>{{tracks}}</pre> -->
@@ -78,6 +78,7 @@
 </template>
 
 <script lang="ts">
+import { ArtistTrackModel } from '@/models'
 import Vue from 'vue'
 import Component from 'vue-class-component'
 
@@ -95,7 +96,7 @@ export default class Artist extends Vue {
         return this.$store.getters['trackModule/getTracks'][0]? this.$store.getters['trackModule/getTracks'][0]: []
     }
     get albums () {
-        return this.$store.getters['albumModule/getAlbums']?this.$store.getters['albumModule/getAlbums']:[]     
+        return this.$store.getters['albumModule/getAlbums']?this.$store.getters['albumModule/getAlbums']:[]
     }
     get songs () {
         return this.tracks.tracks?this.tracks.tracks:[]
@@ -109,9 +110,9 @@ export default class Artist extends Vue {
         return this.$store.getters['getCurrent']
     }
 
-    playAlbum(id: any) {
-        this.$store.dispatch('trackModule/fetchAlbumTracks', id).then((response: any) => {
-            response[0].tracks.map((track: any) => {
+    playAlbum(id: string) {
+        this.$store.dispatch('trackModule/fetchAlbumTracks', id).then((response) => {
+            response[0].tracks.map((track: ArtistTrackModel) => {
                 track['artist_name'] = response[0].artist_name
                 track.image = response[0].image
             })
@@ -122,7 +123,7 @@ export default class Artist extends Vue {
         })
     }
 
-    convertTime (secs: any) {
+    convertTime (secs: number) {
         const min = Math.floor(secs / 60);
         const sec = secs % 60;
         const minute = (min < 10) ? "0" + min : min;
@@ -130,7 +131,7 @@ export default class Artist extends Vue {
         return (minute + ':' + seconds);
     }
 
-    playSong (track: any, queue: any) {
+    playSong (track: ArtistTrackModel, queue: ArtistTrackModel[]) {
         this.audio.playbackRate = 1
         this.audio.src = track.audio
         this.$store.commit('setTracksQueue', queue)
@@ -140,15 +141,15 @@ export default class Artist extends Vue {
 
     mounted () {
         window.scrollTo(0,0);
-        this.$store.dispatch('artistModule/fetchArtistInfo', this.$route.params.id).then((response: any) => {
+        this.$store.dispatch('artistModule/fetchArtistInfo', this.$route.params.id).then(() => {
             this.loader = false
-        }).catch((error: any) => {
+        }).catch((error)=> {
             this.loader = false
             this.error = error
         })
-        this.$store.dispatch('trackModule/fetchArtistTracks', this.$route.params.id).then((response: any) => {
+        this.$store.dispatch('trackModule/fetchArtistTracks', this.$route.params.id).then((response) => {
             if (response.length > 0) {
-                response[0].tracks.map((track: any) => {
+                response[0].tracks.map((track: ArtistTrackModel) => {
                     track['artist_name'] = response[0].name
                 })
             }
@@ -267,7 +268,7 @@ export default class Artist extends Vue {
     .playing {
         background-color: var(--table-hover);
     }
-    
+
     a {
         text-decoration: none;
         cursor: pointer;

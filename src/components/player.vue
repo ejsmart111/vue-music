@@ -28,14 +28,14 @@
             <p style="color: var(--icons);font-family:nunito;margin-top:28px;">{{convertTime(current.duration)}}</p>
         </div>
         <div class="song-controllers" style="margin-top: 14px">
-            <font-awesome-icon @click="repeat" :style="isRepeat?{color: 'var(--main)'}: {color: 'var(--icons)'}" class="icons other controllers" icon="redo"/>           
+            <font-awesome-icon @click="repeat" :style="isRepeat?{color: 'var(--main)'}: {color: 'var(--icons)'}" class="icons other controllers" icon="redo"/>
             <font-awesome-icon @click="shuffle" :style="isShuffle?{color: 'var(--main)'}: {color: 'var(--icons)'}" class="icons other controllers" icon="random"/>
             <font-awesome-icon v-if="mutes" @click="mute" style="color: var(--main)" class="icons other controllers" icon="volume-mute"/>
             <font-awesome-icon v-else @click="mute" style="color: var(--icons)" class="icons other controllers" icon="volume-up"/>
             <input class="range volume" style="margin-top: -10px" type="range" min="0" step="0.01" max="1" @change="audio.muted = false"  v-model="audio.volume" />
             <!-- <font-awesome-icon class="icons other controllers" style="font-size: 20px" icon="info-circle"/> -->
         </div>
-      </div>    
+      </div>
       <div class="all">
         <div class="mobile">
             <div class="cont">
@@ -46,11 +46,11 @@
             </div>
             <div class="song-slider" style="margin: -10px auto">
                 <p style="color:var(--icons);font-family:nunito;margin-top:26px;">{{times}}</p>
-                <input class="range" id="mobile-time" style="margin-top:10px;margin-left:8px;max-width:200px" type="range" min="0" step="0.1" :max="audio.duration" v-model="audio.currentTime"/>                
+                <input class="range" id="mobile-time" style="margin-top:10px;margin-left:8px;max-width:200px" type="range" min="0" step="0.1" :max="audio.duration" v-model="audio.currentTime"/>
                 <p style="color: var(--icons);font-family:nunito;margin-top:26px;margin-left:8px">{{convertTime(current.duration)}}</p>
             </div>
             <div style="margin-top: -10px" class="song-controllers">
-                <font-awesome-icon @click="repeat" :style="isRepeat?{color: 'var(--main)'}: {color: 'var(--icons)'}" class="icons other controllers" icon="redo"/>           
+                <font-awesome-icon @click="repeat" :style="isRepeat?{color: 'var(--main)'}: {color: 'var(--icons)'}" class="icons other controllers" icon="redo"/>
                 <font-awesome-icon @click="shuffle" :style="isShuffle?{color: 'var(--main)'}: {color: 'var(--icons)'}" class="icons other controllers" icon="random"/>
                 <font-awesome-icon v-if="mutes" @click="mute" style="color: var(--main)" class="icons other controllers" icon="volume-mute"/>
                 <font-awesome-icon v-else @click="mute" style="color: var(--icons)" class="icons other controllers" icon="volume-up"/>
@@ -91,7 +91,7 @@ export default class Player extends Vue {
         return (Math.round(this.audio.currentTime)/60).toFixed(2)
     }
 
-    convertTime (secs: any) {
+    convertTime (secs: number) {
         const min = Math.floor(secs / 60);
         const sec = secs % 60;
         const minute = (min < 10) ? "0" + min : min;
@@ -128,10 +128,10 @@ export default class Player extends Vue {
                 this.playNext()
             }
             this.times = this.convertTime(Math.round(this.audio.currentTime))
-            const c = document.getElementById('time') as any
-            const d = document.getElementById('mobile-time') as any
-            c.value = Math.round(this.audio.currentTime)
-            d.value = Math.round(this.audio.currentTime)
+            const c = document.getElementById('time') as HTMLInputElement
+            const d = document.getElementById('mobile-time') as HTMLInputElement
+            c.value = Math.round(this.audio.currentTime).toString()
+            d.value = Math.round(this.audio.currentTime).toString()
         }, 1000)
     }
     mute () {
@@ -304,12 +304,12 @@ export default class Player extends Vue {
         height: 3px;
     }
 
-    .range::-ms-fill-lower { 
+    .range::-ms-fill-lower {
         background-color: var(--main);
         border-radius: 3px;
     }
 
-    .range::-ms-fill-upper { 
+    .range::-ms-fill-upper {
         background-color: var(--main);
         border-radius: 3px;
     }
@@ -356,11 +356,11 @@ export default class Player extends Vue {
         outline: none;
     }
 
-    .range::-ms-thumb { 
+    .range::-ms-thumb {
         border-radius: 100%;
         background-color: var(--main);
         height: 18px;
-        width: 18px; 
+        width: 18px;
         border: none;
     }
 

@@ -56,11 +56,12 @@
             </div>
         </div>
         <br><br><br><br><br><br><br><br><br><br><br><br>
-      </div> 
+      </div>
   </div>
 </template>
 
 <script lang="ts">
+import { ArtistTrackModel } from '@/models'
 import Vue from 'vue'
 import Component from 'vue-class-component'
 
@@ -88,9 +89,9 @@ export default class Home extends Vue {
         return this.$store.getters['getAudio']
     }
 
-    playAlbum(id: any) {
-        this.$store.dispatch('trackModule/fetchAlbumTracks', id).then((response: any) => {
-            response[0].tracks.map((track: any) => {
+    playAlbum(id: string) {
+        this.$store.dispatch('trackModule/fetchAlbumTracks', id).then((response) => {
+            response[0].tracks.map((track: ArtistTrackModel) => {
                 track['artist_name'] = response[0].artist_name
                 track.image = response[0].image
             })
@@ -101,7 +102,7 @@ export default class Home extends Vue {
         })
     }
 
-    playSong (track: any, queue: any) {
+    playSong (track: ArtistTrackModel, queue: ArtistTrackModel[]) {
         this.audio.playbackRate = 1
         this.audio.src = track.audio
         this.$store.commit('setTracksQueue', queue)
@@ -113,7 +114,7 @@ export default class Home extends Vue {
         window.scrollTo(0,0);
         this.$store.dispatch('artistModule/fetchArtistOfTheWeek', 8).then(() => {
             this.loader = false
-        }).catch((error: any) => {
+        }).catch((error) => {
             this.loader = false
             this.error = error
         })

@@ -15,15 +15,16 @@
 </template>
 
 <script lang="ts">
+import { AlbumModel } from '@/models'
 import Vue from 'vue'
 import {Component, Prop} from 'vue-property-decorator'
 
 @Component
 export default class AlbumsSearch extends Vue {
     @Prop()
-    albums !: any
+    albums !: AlbumModel[]
     @Prop({default: false})
-    more !: any
+    more !: boolean
 }
 </script>
 

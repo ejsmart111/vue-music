@@ -15,13 +15,14 @@
 </template>
 
 <script lang="ts">
+import { ArtistModel } from '@/models'
 import Vue from 'vue'
-import {Component, Prop, Provide} from 'vue-property-decorator'
+import {Component, Prop} from 'vue-property-decorator'
 
 @Component
 export default class ArtistSearch extends Vue {
     @Prop()
-    artists !: any
+    artists !: ArtistModel[]
     @Prop({default: false})
     more !: boolean
 

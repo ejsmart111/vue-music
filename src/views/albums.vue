@@ -54,6 +54,7 @@
 </template>
 
 <script lang="ts">
+import { ArtistTrackModel } from '@/models'
 import Vue from 'vue'
 import Component from 'vue-class-component'
 
@@ -73,7 +74,7 @@ export default class Album extends Vue {
         return this.$store.getters['getCurrent']
     }
 
-    playSong (track: any, queue: any) {
+    playSong (track: ArtistTrackModel, queue: ArtistTrackModel[]) {
         this.audio.playbackRate = 1
         this.audio.src = track.audio
         this.$store.commit('setTracksQueue', queue)
@@ -88,7 +89,7 @@ export default class Album extends Vue {
         this.audio.play()
     }
 
-    convertTime (secs: any) {
+    convertTime (secs: number) {
         const min = Math.floor(secs / 60);
         const sec = secs % 60;
         const minute = (min < 10) ? "0" + min : min;
@@ -98,9 +99,9 @@ export default class Album extends Vue {
 
     mounted () {
         window.scrollTo(0,0);
-        this.$store.dispatch('trackModule/fetchAlbumTracks', this.$route.params.id).then((response: any) => {
+        this.$store.dispatch('trackModule/fetchAlbumTracks', this.$route.params.id).then((response: ArtistTrackModel[]) => {
             this.loader = false
-            response[0].tracks.map((track: any) => {
+            response[0].tracks.map((track: ArtistTrackModel) => {
                 track['artist_name'] = response[0].artist_name
                 track.image = response[0].image
             })

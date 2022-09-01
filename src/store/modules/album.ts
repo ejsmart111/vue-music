@@ -1,5 +1,7 @@
 import {base, clientId} from '@/axios_http/index'
-import axios from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import { AlbumModel } from '@/models';
+import { Commit } from 'vuex';
 
 const state = {
   albumOfTheWeek: [],
@@ -9,23 +11,23 @@ const state = {
 }
 
 interface InterfaceState {
-  albumOfTheWeek: any;
-  albums: any;
-  albumsTotal: any;
-  albumsMonth: any;
+  albumOfTheWeek: AlbumModel[];
+  albums: AlbumModel[];
+  albumsTotal: AlbumModel[];
+  albumsMonth: AlbumModel[];
 }
 
 const mutations = {
-    setWeekAlbum(state: InterfaceState, payload: any) {
+    setWeekAlbum(state: InterfaceState, payload: AlbumModel[]) {
       state.albumOfTheWeek = payload
     },
-    setAlbums (state: InterfaceState, payload: any) {
+    setAlbums (state: InterfaceState, payload: AlbumModel[]) {
       state.albums = payload
     },
-    setAlbumsTotal(state: InterfaceState, payload: any) {
+    setAlbumsTotal(state: InterfaceState, payload: AlbumModel[]) {
       state.albumsTotal = payload
     },
-    setAlbumsMonth(state: InterfaceState, payload: any) {
+    setAlbumsMonth(state: InterfaceState, payload: AlbumModel[]) {
       state.albumsMonth = payload
     },
 }
@@ -46,79 +48,79 @@ const getters = {
 }
 
 const actions = {
-    fetchAlbumOfTheWeek({commit}: {commit: any}, payload: number) {
+    fetchAlbumOfTheWeek({commit}: {commit: Commit}, payload: number) {
       commit('setWeekAlbum', [])
       return new Promise ((resolve, reject) => {
-        axios.get(base + 'albums/?client_id=' + clientId + '&limit=' + payload +'&format=jsonpretty&order=popularity_week&imagesize=600').then((response: any) => {
+        axios.get(base + 'albums/?client_id=' + clientId + '&limit=' + payload +'&format=jsonpretty&order=popularity_week&imagesize=600').then((response: AxiosResponse) => {
           resolve(response.data.results)
           commit('setWeekAlbum', response.data.results)
-        }).catch((error: any) => {
+        }).catch((error: AxiosError) => {
           reject(error)
         })
       })
     },
-    fetchArtistAlbums ({commit}: {commit: any}, payload: any) {
-    commit('setAlbums', [])
+    fetchArtistAlbums ({commit}: {commit: Commit}, payload: string) {
+      commit('setAlbums', [])
       return new Promise ((resolve, reject) => {
-        axios.get(base+'artists/albums/?client_id='+clientId+'&format=jsonpretty&imagesize=600&id='+payload).then((response: any) => {
+        axios.get(base+'artists/albums/?client_id='+clientId+'&format=jsonpretty&imagesize=600&id='+payload).then((response: AxiosResponse) => {
           resolve(response.data.results)
           commit('setAlbums', response.data.results)
-        }).catch((error: any) => {
+        }).catch((error: AxiosError) => {
           reject(error)
         })
       })
     },
-    fetchTopAlbums({commit}: {commit: any}) {
+    fetchTopAlbums({commit}: {commit: Commit}) {
       commit('setAlbumsTotal', [])
      return new Promise ((resolve, reject) => {
-       axios.get(base+'albums/?client_id='+clientId+'&format=jsonpretty&order=popularity_total&imagesize=600&limit=16').then((response: any) => {
+       axios.get(base+'albums/?client_id='+clientId+'&format=jsonpretty&order=popularity_total&imagesize=600&limit=16').then((response: AxiosResponse) => {
          resolve(response.data.results)
          commit('setAlbumsTotal', response.data.results)
-       }).catch((error: any) => {
+       }).catch((error: AxiosError) => {
          reject(error)
        })
      })
    },
-   fetchPagesForTopAlbums({commit}: {commit: any}, payload: any) {
+   fetchPagesForTopAlbums({commit}: {commit: Commit}, payload: number) {
     commit('setAlbumsTotal', [])
      return new Promise ((resolve, reject) => {
-       axios.get(base+'albums/?client_id='+clientId+'&format=jsonpretty&order=popularity_total&imagesize=600&limit=16&offset='+payload).then((response: any) => {
+       axios.get(base+'albums/?client_id='+clientId+'&format=jsonpretty&order=popularity_total&imagesize=600&limit=16&offset='+payload).then((response: AxiosResponse) => {
          resolve(response.data.results)
          commit('setAlbumsTotal', response.data.results)
-       }).catch((error: any) => {
+       }).catch((error: AxiosError) => {
          reject(error)
        })
      })
    },
-    fetchTopAlbumsMonth({commit}: {commit: any}) {
+    fetchTopAlbumsMonth({commit}: {commit: Commit}) {
       commit('setAlbumsMonth', [])
      return new Promise ((resolve, reject) => {
-       axios.get(base+'albums/?client_id='+clientId+'&format=jsonpretty&order=popularity_month&imagesize=600&limit=16').then((response: any) => {
+       axios.get(base+'albums/?client_id='+clientId+'&format=jsonpretty&order=popularity_month&imagesize=600&limit=16').then((response: AxiosResponse) => {
          resolve(response.data.results)
          commit('setAlbumsMonth', response.data.results)
-       }).catch((error: any) => {
+       }).catch((error: AxiosError) => {
          reject(error)
        })
      })
    },
-   fetchPagesForTopAlbumsMonth({commit}: {commit: any}, payload: any) {
+   fetchPagesForTopAlbumsMonth({commit}: {commit: Commit}, payload: number) {
     commit('setAlbumsMonth', [])
      return new Promise ((resolve, reject) => {
-       axios.get(base+'albums/?client_id='+clientId+'&format=jsonpretty&order=popularity_month&limit=16&imagesize=600&offset='+payload).then((response: any) => {
+       axios.get(base+'albums/?client_id='+clientId+'&format=jsonpretty&order=popularity_month&limit=16&imagesize=600&offset='+payload).then((response: AxiosResponse) => {
          resolve(response.data.results)
          commit('setAlbumsMonth', response.data.results)
-       }).catch((error: any) => {
+       }).catch((error: AxiosError) => {
          reject(error)
        })
      })
    },
-   fetchSearchrdAlbums({commit}: {commit: any}, payload: any) {
+   fetchSearchrdAlbums({commit}: {commit: Commit}, payload: string) {
     commit('setAlbums', [])
      return new Promise ((resolve, reject) => {
-       axios.get(base+'albums/?client_id='+clientId+'&format=jsonpretty&limit=50&imagesize=600&namesearch='+payload).then((response: any) => {
+       axios.get(base+'albums/?client_id='+clientId+'&format=jsonpretty&limit=50&imagesize=600&namesearch='+payload).then((response: AxiosResponse) => {
          resolve(response.data.results)
          commit('setAlbums', response.data.results)
-       }).catch((error: any) => {
+       }).catch((error: AxiosError) => {
          reject(error)
        })
      })

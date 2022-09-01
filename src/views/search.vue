@@ -43,6 +43,7 @@ import {Component, Watch, Provide} from 'vue-property-decorator'
 import music from '@/views/search/searchMusic.vue'
 import artists from '@/views/search/searchArtist.vue'
 import albums from '@/views/search/searchAlbum.vue'
+import { AlbumModel, ArtistModel, ArtistTrackModel } from '@/models'
 
 @Component({
     components: {
@@ -55,12 +56,12 @@ export default class Search extends Vue {
     @Provide() tabView = 'all'
     @Provide() loader = true
 
-    slicedStuffs (obj: any, num: any) {
+    slicedStuffs (obj: ArtistModel[] | AlbumModel[] | ArtistTrackModel[], num: number) {
         return obj.slice(0,num)
     }
 
     @Watch('$route.params.query')
-    onPropertyChange(newValue: any, oldValue: any) {
+    onPropertyChange(newValue: string) {
         this.$store.dispatch('trackModule/fetchSearchedTracks', newValue)
         this.$store.dispatch('artistModule/fetchSearchedArtists', newValue)
     }

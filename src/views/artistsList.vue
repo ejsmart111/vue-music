@@ -119,7 +119,7 @@ export default class ArtistsList extends Vue {
         window.scrollTo(0,0);
         this.$store.dispatch('artistModule/fetchTopArtists').then(() => {
             this.loader = false
-        }).catch((error: any) => {
+        }).catch((error) => {
             this.loader = false
             this.error = error
         })

@@ -9,7 +9,7 @@
                 <p class="title">{{($route.params.link).toUpperCase()}}</p>
             </div>
         </div><br><br><br>
-        
+
         <div class="second">
           <table v-if="!loader">
               <thead>
@@ -62,6 +62,7 @@
 </template>
 
 <script lang="ts">
+import { ArtistTrackModel } from '@/models'
 import Vue from 'vue'
 import Component from 'vue-class-component'
 
@@ -134,9 +135,9 @@ export default class GenreTracks extends Vue {
         return this.$store.getters['getCurrent']
     }
 
-    playAlbum(id: any) {
-        this.$store.dispatch('trackModule/fetchAlbumTracks', id).then((response: any) => {
-            response[0].tracks.map((track: any) => {
+    playAlbum(id: string) {
+        this.$store.dispatch('trackModule/fetchAlbumTracks', id).then((response) => {
+            response[0].tracks.map((track: ArtistTrackModel) => {
                 track['artist_name'] = response[0].artist_name
                 track.image = response[0].image
             })
@@ -147,7 +148,7 @@ export default class GenreTracks extends Vue {
         })
     }
 
-    convertTime (secs: any) {
+    convertTime (secs: number) {
         const min = Math.floor(secs / 60);
         const sec = secs % 60;
         const minute = (min < 10) ? "0" + min : min;
@@ -155,7 +156,7 @@ export default class GenreTracks extends Vue {
         return (minute + ':' + seconds);
     }
 
-    playSong (track: any, queue: any) {
+    playSong (track: ArtistTrackModel, queue: ArtistTrackModel[]) {
         this.audio.playbackRate = 1
         this.audio.src = track.audio
         this.$store.commit('setTracksQueue', queue)
@@ -169,7 +170,7 @@ export default class GenreTracks extends Vue {
             genre: this.$route.params.link,
             offset: 0
         }
-        this.$store.dispatch('trackModule/fetchGenreTracks', obj).then((response: any) => {
+        this.$store.dispatch('trackModule/fetchGenreTracks', obj).then(() => {
            this.loader = false
         })
     }
@@ -300,7 +301,7 @@ export default class GenreTracks extends Vue {
             color: var(--text-dark);
         }
     }
-    
+
     a {
         text-decoration: none;
         cursor: pointer;

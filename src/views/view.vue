@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div class="song-controllers" style="margin: 0 auto;margin-top: 14px">
-                <font-awesome-icon @click="repeat" :style="isRepeat?{color: 'var(--main)'}: {color: 'var(--icons)'}" class="icons other controllers" icon="redo"/>           
+                <font-awesome-icon @click="repeat" :style="isRepeat?{color: 'var(--main)'}: {color: 'var(--icons)'}" class="icons other controllers" icon="redo"/>
                 <font-awesome-icon @click="shuffle" :style="isShuffle?{color: 'var(--main)'}: {color: 'var(--icons)'}" class="icons other controllers" icon="random"/>
                 <font-awesome-icon v-if="mutes" @click="mute" style="color: var(--main)" class="icons other controllers" icon="volume-mute"/>
                 <font-awesome-icon v-else @click="mute" style="color: var(--icons)" class="icons other controllers" icon="volume-up"/>
@@ -35,12 +35,12 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 
-@Component 
+@Component
 export default class ViewPlayer extends Vue {
     playing = false
     mutes = false
     clickTo() {
-        this.$store.commit('showFullFalse'); 
+        this.$store.commit('showFullFalse');
         this.$router.push('/album/'+this.current.album_id)
     }
     get current (){
@@ -73,7 +73,7 @@ export default class ViewPlayer extends Vue {
         this.audio.pause()
         this.playing = !this.playing
     }
-    convertTime (secs: any) {
+    convertTime (secs: number) {
         const min = Math.floor(secs / 60);
         const sec = secs % 60;
         const minute = (min < 10) ? "0" + min : min;
@@ -92,8 +92,9 @@ export default class ViewPlayer extends Vue {
     slider () {
         setInterval(() => {
             this.times = this.convertTime(Math.round(this.audio.currentTime))
-            const c = this.$refs.time as any
-            c.value = Math.round(this.audio.currentTime)
+            const c = this.$refs.time as HTMLInputElement
+            if (c)
+                c.value = Math.round(this.audio.currentTime).toString()
         }, 1000)
     }
 
@@ -158,7 +159,7 @@ export default class ViewPlayer extends Vue {
         height: 300px;
         border: 1px solid var(--main);
         border-radius: 20px;
-        
+
     }
 
     a {
@@ -224,12 +225,12 @@ export default class ViewPlayer extends Vue {
         height: 3px;
     }
 
-    .range::-ms-fill-lower { 
+    .range::-ms-fill-lower {
         background-color: var(--main);
         border-radius: 3px;
     }
 
-    .range::-ms-fill-upper { 
+    .range::-ms-fill-upper {
         background-color: var(--main);
         border-radius: 3px;
     }
@@ -281,11 +282,11 @@ export default class ViewPlayer extends Vue {
         outline: none;
     }
 
-    .range::-ms-thumb { 
+    .range::-ms-thumb {
         border-radius: 100%;
         background-color: var(--main);
         height: 18px;
-        width: 18px; 
+        width: 18px;
         border: none;
     }
 

@@ -12,7 +12,7 @@
                 <a style="padding: 5px 20px 8px 20px" v-if="playlist.tracks" :href="playlist.zip" class="btn-norm"><font-awesome-icon icon="download"/> Download Playlist</a>
             </div>
         </div><br><br><br>
-        
+
         <div class="second">
           <table v-if="!loader">
               <thead>
@@ -60,6 +60,7 @@
 </template>
 
 <script lang="ts">
+import { ArtistTrackModel } from '@/models'
 import Vue from 'vue'
 import Component from 'vue-class-component'
 
@@ -101,8 +102,8 @@ export default class Artist extends Vue {
         return this.pictures[Math.floor(Math.random()*this.pictures.length)]
     }
 
-    playAlbum(id: any) {
-        this.$store.dispatch('trackModule/fetchPlaylistTracks', id).then((response: any) => {
+    playAlbum(id: string) {
+        this.$store.dispatch('trackModule/fetchPlaylistTracks', id).then((response) => {
             this.$store.commit('setTracksQueue', response[0].tracks)
             this.$store.commit('playTrack', response[0].tracks[0])
             this.audio.src = response[0].tracks[0].audio
@@ -110,7 +111,7 @@ export default class Artist extends Vue {
         })
     }
 
-    convertTime (secs: any) {
+    convertTime (secs: number) {
         const min = Math.floor(secs / 60);
         const sec = secs % 60;
         const minute = (min < 10) ? "0" + min : min;
@@ -118,7 +119,7 @@ export default class Artist extends Vue {
         return (minute + ':' + seconds);
     }
 
-    playSong (track: any, queue: any) {
+    playSong (track: ArtistTrackModel, queue: ArtistTrackModel[]) {
         this.audio.playbackRate = 1
         this.audio.src = track.audio
         this.$store.commit('setTracksQueue', queue)
@@ -231,7 +232,7 @@ export default class Artist extends Vue {
             color: var(--text-dark);
         }
     }
-    
+
     a {
         text-decoration: none;
         cursor: pointer;

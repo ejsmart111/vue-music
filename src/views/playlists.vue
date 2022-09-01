@@ -85,9 +85,9 @@ export default class Playlist extends Vue {
 
     mounted() {
         window.scrollTo(0,0);
-        this.$store.dispatch('playlistModule/fetchTopPlaylists').then((response: any) => {
+        this.$store.dispatch('playlistModule/fetchTopPlaylists').then(() => {
             this.loader = false
-        }).catch((error: any) => {
+        }).catch((error) => {
             this.loader = false
             this.error = error
         })

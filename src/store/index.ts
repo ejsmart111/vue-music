@@ -4,14 +4,15 @@ import artistModule from './modules/artists'
 import albumModule from './modules/album'
 import trackModule from './modules/track'
 import playlistModule from './modules/playlist'
+import { ArtistTrackModel } from '@/models'
 
 Vue.use(Vuex)
 
 interface InterState {
     sideNav: boolean;
-    audio: any;
-    current: any;
-    tracksQueue: any;
+    audio: HTMLAudioElement;
+    current: ArtistTrackModel | null;
+    tracksQueue: ArtistTrackModel[];
     isShuffle: boolean;
     isRepeat: boolean;
     showFull: boolean;
@@ -19,19 +20,19 @@ interface InterState {
 
 const state = {
   sideNav: false,
-    audio: new Audio(),
-    current: null,
-    tracksQueue: [],
-    isShuffle: false,
-    isRepeat: false,
-    showFull: false,
+  audio: new Audio(),
+  current: null,
+  tracksQueue: [],
+  isShuffle: false,
+  isRepeat: false,
+  showFull: false,
 }
 
 const mutations = {
-  setSideNav(state: any) {
+  setSideNav(state: InterState) {
     state.sideNav = !state.sideNav
   },
-  setSideNavFalse(state: any) {
+  setSideNavFalse(state: InterState) {
     state.sideNav = false
   },
   setShuffle(state: InterState) {
@@ -49,22 +50,22 @@ const mutations = {
   showFullFalse(state: InterState){
     state.showFull = false
   },
-  playTrack(state: InterState, payload: any) {
+  playTrack(state: InterState, payload: ArtistTrackModel) {
     let indexToUpdate = -1
-    state.tracksQueue.forEach((thisTrack: any, index: any, trackArray: any) => {
+    state.tracksQueue.forEach((thisTrack: ArtistTrackModel, index: number) => {
         if (payload.id === thisTrack.id) {
             indexToUpdate = index
         }
     })
     state.current = state.tracksQueue[indexToUpdate]
   },
-  setTracksQueue(state: InterState, payload: any) {
+  setTracksQueue(state: InterState, payload: ArtistTrackModel[]) {
     state.tracksQueue = payload
   },
   playNextSong(state: InterState) {
     let indexToUpdate = -1
-    state.tracksQueue.forEach((thisTrack: any, index: any, trackArray: any) => {
-        if (state.current.id === thisTrack.id) {
+    state.tracksQueue.forEach((thisTrack: ArtistTrackModel, index: number) => {
+        if (state.current && state.current.id === thisTrack.id) {
             indexToUpdate = index
         }
     })
@@ -87,8 +88,8 @@ const mutations = {
   },
   playPreviousSong(state: InterState) {
     let indexToUpdate = -1
-    state.tracksQueue.forEach((thisTrack: any, index: any, trackArray: any) => {
-        if (state.current.id === thisTrack.id) {
+    state.tracksQueue.forEach((thisTrack: ArtistTrackModel, index: number) => {
+        if (state.current && state.current.id === thisTrack.id) {
             indexToUpdate = index
         }
     })
@@ -112,7 +113,7 @@ const mutations = {
 }
 
 const getters = {
-  getSideNav (state: any) {
+  getSideNav (state: InterState) {
     return state.sideNav
   },
   getAudio (state: InterState) {

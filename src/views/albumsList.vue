@@ -117,9 +117,9 @@ export default class AlbumsList extends Vue {
 
     mounted() {
         window.scrollTo(0,0);
-        this.$store.dispatch('albumModule/fetchTopAlbums').then((response: any) => {
+        this.$store.dispatch('albumModule/fetchTopAlbums').then(() => {
             this.loader = false
-        }).catch((error: any) => {
+        }).catch((error) => {
             this.loader = false
             this.error = error
         })

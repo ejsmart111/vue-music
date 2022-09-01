@@ -46,13 +46,14 @@
 </template>
 
 <script lang="ts">
+import { SearchedMusicModel } from '@/models'
 import Vue from 'vue'
 import {Component, Prop} from 'vue-property-decorator'
 
 @Component
 export default class MusicSearch extends Vue {
     @Prop()
-    songs !: any
+    songs !: SearchedMusicModel[]
     @Prop({default: false})
     more !: boolean
 
@@ -64,7 +65,7 @@ export default class MusicSearch extends Vue {
         return this.$store.getters['getCurrent']
     }
 
-    convertTime (secs: any) {
+    convertTime (secs: number) {
         const min = Math.floor(secs / 60);
         const sec = secs % 60;
         const minute = (min < 10) ? "0" + min : min;
@@ -72,7 +73,7 @@ export default class MusicSearch extends Vue {
         return (minute + ':' + seconds);
     }
 
-    playSong (track: any, queue: any) {
+    playSong (track: SearchedMusicModel, queue: SearchedMusicModel[]) {
         this.audio.src = track.audio
         this.$store.commit('setTracksQueue', queue)
         this.$store.commit('playTrack', track)
